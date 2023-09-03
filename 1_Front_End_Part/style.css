@@ -13,14 +13,14 @@ header {
 }
 
 header h1 {
-    font-size: 24px;
+    font-size: 26px;
 }
 
 main {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 80vh;
 }
 
 .container {
@@ -74,10 +74,7 @@ button {
     cursor: pointer;
 }
 
-.btn-signup {
-    background-color: #34caac; /* Light Diamond Color Green */
-}
-
+ 
 .btn-signin:hover,
 .btn-signup:hover {
     background-color: #2980b9; /* Slightly Darker Blue */

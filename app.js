@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 
 // Define your routes for 'post', 'get', and 'delete' here
 app.use('/post', router);
-app.get('/get', router);
+ 
 
 app.get('/', (req, res,) => {
     res.send('Welcome to the Expense Tracker App');

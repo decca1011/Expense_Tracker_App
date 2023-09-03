@@ -1,4 +1,40 @@
-function post(event) {
+function signIn(event) {
+  event.preventDefault();
+
+  // Get the values from the form
+  const email = document.getElementById("existingEmail").value;
+  const password = document.getElementById("existingPassword").value;
+
+  // Create an object with the user's email and password
+  const userData = {
+    email: email,
+    password: password
+  };
+
+  // Make a POST request to your backend for sign-in
+  axios.post('http://localhost:3000/post/signin', userData)
+    .then((result) => {
+      // Check the response from the backend
+      if (result.data.success) {
+        // Authentication successful, you can redirect or perform other actions
+        alert("login- successful")
+        console.log('Sign-in successful');
+      } else {
+        // Authentication failed, handle the error here
+       
+        console.log('Sign-in failed');
+      }
+    })
+    .catch((err) => {
+      // Handle other errors here
+      alert("login- un-successful")
+      console.error('Sign-in error:', err);
+    });
+}
+
+
+function signUp(event) {
+  // Add your sign-up logic here
     event.preventDefault();
   
     // Get the values from the form
