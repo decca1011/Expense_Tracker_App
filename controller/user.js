@@ -40,17 +40,23 @@ exports.get_User = (req, res, next) => {
   User.findOne({
     where: {
       email: email,
-      password: password,
     },
   })
     .then((user) => {
-      if (user) {
-        // User with matching credentials found, you can consider it a successful sign-in
-        res.status(200).json({ success: true, message: 'Sign-in successful' });
-      } else {
-        // No user with matching credentials found, sign-in failed
-        res.status(401).json({ success: false, message: 'Sign-in failed' });
+      if(user)
+      {
+        if (user.password=== password) {
+          // User with matching credentials found, you can consider it a successful sign-in
+          res.status(200).json({ success: true, message: 'User login sucessful' });
+        } else {
+          // No user with matching credentials found, sign-in failed
+          res.status(401).json({ success: false, message: 'User not authorized)' });
+        }
       }
+      else {
+        res.status(401).json({ success: false, message: 'User not found)' });
+      }
+    
     })
     .catch((err) => {
       console.error(err);

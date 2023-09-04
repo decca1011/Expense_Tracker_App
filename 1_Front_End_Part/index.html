@@ -13,9 +13,9 @@
     </header>
     <main>
         <section class="container">
-            <div class="left">
+            <div id="signInContainer"> <!-- Added a container for Sign In form -->
+                <h2>Existing User Sign In</h2>
                 <form id="signInForm">
-                  <h2>Existing User Sign In</h2>
                     <div class="form-group">
                         <label for="existingEmail">Email:</label>
                         <input type="email" id="existingEmail" name="existingEmail" required>
@@ -26,33 +26,31 @@
                     </div>
                     <button class="btn-signin" onclick="signIn(event)">Sign In</button>
                 </form>
-                
             </div>
-            <div class="right">
-                <div id="signUpContainer" style="display: none;">
-                    <h2>Create an Account</h2>
-                    <form id="signUpForm">
-                        <div class="form-group">
-                            <label for="username">Username:</label>
-                            <input type="text" id="username" name="username" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email:</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Password:</label>
-                            <input type="password" id="password" name="password" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="mobile">Mobile Number:</label>
-                            <input type="tel" id="mobile" name="mobile" required>
-                        </div>
-                        <button class="btn-signup" onclick="signUp(event)">Sign Up</button>
-                    </form>
-                </div>
-                <button class="btn-signup-toggle" onclick="toggleSignUp()">New User? Sign Up</button>
-            </div>
+            <div id="signUpContainer" style="display: none;"> <!-- Added a container for Sign Up form -->
+                <h2>Create an Account</h2>
+                <form id="signUpForm">
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="mobile">Mobile Number:</label>
+                        <input type="tel" id="mobile" name="mobile" required>
+                    </div>
+                    <button class="btn-signup" onclick="signUp(event)">Sign Up</button>
+                </form>
+            </div><br><br>
+            
+            <button class="btn-signup-toggle" onclick="toggleSignUp()">New User? Sign Up</button>
         </section>
     </main>
     <footer>
@@ -60,22 +58,22 @@
     </footer>
     <script>
      
-     function toggleSignUp() {
-      
-
-            var signUpButton = document.querySelector(".btn-signup-toggle");
-            var signUpContainer = document.getElementById("signUpContainer");
-        var signInForm = document.getElementById("signInForm");
-
-        // Hide the sign-in form
-        signInForm.style.display = "none";
-
-        // Show the sign-up container
-        signUpContainer.style.display = "block";
-
-            signUpButton.style.display = "none";
-        }
-  </script>
+      function toggleSignUp() {
+       
+ 
+             var signUpButton = document.querySelector(".btn-signup-toggle");
+             var signUpContainer = document.getElementById("signUpContainer");
+         var signInForm = document.getElementById("signInForm");
+ 
+         // Hide the sign-in form
+         signInForm.style.display = "none";
+ 
+         // Show the sign-up container
+         signUpContainer.style.display = "block";
+ 
+             signUpButton.style.display = "none";
+         }
+   </script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="user.js"></script>
 </body>
