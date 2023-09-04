@@ -1,23 +1,28 @@
+const bcyrpt = require('bcrypt')
+
 const User = require('../models/userData');
 
-exports.add_User = (req, res, next) => {
+exports.add_User = async (req, res, next) => {
   const username = req.body.username;
   const email = req.body.email;
   const password = req.body.password;
   const mobile = req.body.mobile;
-
-  User.create({
+  const saltRounds = 10 ;
+ 
+  try {
+   const hash = await  bcyrpt.hash(password, saltRounds)
+    
+  const user = await User.create({
     username: username,
     email: email,
-    password: password,
+    password: hash,
     mobile: mobile,
-  })
-    .then((result) => {
-      console.log(req.body, "hiii");
-      res.status(201).json(result);
-    })
-    .catch((err) => {
-      
+  });
+ 
+  console.log('User registered successfully');
+  res.status(201).json(user);
+    }
+    catch(err){
       if (err.name === 'SequelizeUniqueConstraintError') 
       {
         if (err.fields.email) {
@@ -29,37 +34,42 @@ exports.add_User = (req, res, next) => {
       }
      console.error(err);
       res.status(500).json({ error: 'Server error' });
-    });
-};
+    }
+  };
+      
+    
 
-exports.get_User = (req, res, next) => {
+exports.get_User = async (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
 
+  try {
+    const user = await   User.findOne({
+      where: {
+        email: email,
+      },
+    })
+  
   // Find a user with the provided email and password
-  User.findOne({
-    where: {
-      email: email,
-    },
-  })
-    .then((user) => {
       if(user)
       {
-        if (user.password=== password) {
-          // User with matching credentials found, you can consider it a successful sign-in
+         const passwordMatch = await bcyrpt.compare(password , user.password);
+
+         if(passwordMatch){
           res.status(200).json({ success: true, message: 'User login sucessful' });
-        } else {
-          // No user with matching credentials found, sign-in failed
+
+         }
+         else {
           res.status(401).json({ success: false, message: 'User not authorized)' });
+         }
         }
-      }
       else {
         res.status(401).json({ success: false, message: 'User not found)' });
       }
     
-    })
-    .catch((err) => {
+    }
+    catch (err) {
       console.error(err);
       res.status(500).json({ success: false, message: 'Server error' });
-    });
+    }
 };
