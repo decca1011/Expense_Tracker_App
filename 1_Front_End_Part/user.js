@@ -19,7 +19,14 @@ function signIn(event) {
         // Authentication successful, you can redirect or perform other actions
         alert("login- successful")
         console.log('Sign-in successful');
-      } else {
+                // Use a relative path to your HTML file
+               // window.location.href = 'expense.html';
+
+                window.open('expense.html', 'myWindow', 'width=600,height=400');
+
+      } 
+      else 
+      {
         // Authentication failed, handle the error here
        
         console.log('Sign-in failed');

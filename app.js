@@ -5,6 +5,7 @@ const cors = require('cors');
 const app = express();
 const sequelize = require('./util/database');
 const router = require('./router/user');
+const expenseRoutes = require('./router/expense')
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -13,7 +14,15 @@ app.use(bodyParser.json());
 
 // Define your routes for 'post', 'get', and 'delete' here
 app.use('/post', router);
+ // API endpoint to insert a new user
+ app.use('/post/expense', expenseRoutes);
+
+ // API endpoint to get all users
+ app.use('/get/expense', expenseRoutes);
  
+ // API endpoint to perform delete and edit task on user data
+ app.use('/user', expenseRoutes);
+   
 
 app.get('/', (req, res,) => {
     res.send('Welcome to the Expense Tracker App');

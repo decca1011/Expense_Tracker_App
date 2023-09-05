@@ -9,7 +9,7 @@ header {
     background-color: #0ddde0;
     color: #eee5e5e4;
     text-align: center;
-    padding: 10px 0;
+    padding: 20px 0;
 }
 
 header h1 {
@@ -20,7 +20,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80vh;
+    height: 50vh;
 }
 
 /* ... Previous CSS code ... */
@@ -47,7 +47,7 @@ h2 {
 }
 
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     width: 100%; /* Make the form elements full width */
 }
 
