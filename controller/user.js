@@ -1,6 +1,16 @@
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv'); // Import the dotenv library
+dotenv.config(); // Load environment variables from .env file
+const JWT_SECRET = process.env.JWT_SECRET; //
 const bcyrpt = require('bcrypt')
-
 const User = require('../models/userData');
+
+ function generatTokaen(id, name){
+  
+  console.log(name)
+  return jwt.sign({userId: id , name: name},'secretkey')
+
+ }
 
 exports.add_User = async (req, res, next) => {
   const username = req.body.username;
@@ -20,7 +30,13 @@ exports.add_User = async (req, res, next) => {
   });
  
   console.log('User registered successfully');
-  res.status(201).json(user);
+  const token = generatTokaen(user.id, user.username);
+  res.status(201).json({
+    success: true,
+    message: 'User is registered successfully',
+    token: token,
+    
+  });
     }
     catch(err){
       if (err.name === 'SequelizeUniqueConstraintError') 
@@ -39,26 +55,30 @@ exports.add_User = async (req, res, next) => {
       
     
 
-exports.get_User = async (req, res, next) => {
-  const email = req.body.email;
-  const password = req.body.password;
-
+exports.get_User = async (req, res) => {   
+ const {  email, password} = req.body;
+console.log(password)
   try {
-    const user = await   User.findOne({
-      where: {
-        email: email,
-      },
-    })
-  
-  // Find a user with the provided email and password
-      if(user)
-      {
-         const passwordMatch = await bcyrpt.compare(password , user.password);
-
-         if(passwordMatch){
-          res.status(200).json({ success: true, message: 'User login sucessful' });
-
-         }
+    const user = await   User.findOne({where: {email} })
+ 
+       // Find a user with the provided email and password
+       if(user)
+       {
+          const passwordMatch = await bcyrpt.compare(password , user.password);
+ 
+          if(passwordMatch){
+ 
+      
+      const token = generatTokaen(user.id, user.email)
+ 
+           res.status(200).json({ 
+             success: true, message: 
+             'User login sucessful' , token: token});
+             
+ 
+          }
+    
+ 
          else {
           res.status(401).json({ success: false, message: 'User not authorized)' });
          }

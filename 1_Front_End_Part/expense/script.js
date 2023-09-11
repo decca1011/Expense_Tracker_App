@@ -1,35 +1,53 @@
-function test(event) {
-   event.preventDefault();
-   //retrivewing data
-   var uid = document.getElementById("expenseAmount").value;
-   var pwd = document.getElementById("descript").value;
-   var eml = document.getElementById("Category").value;
+async function test(event) {
+  event.preventDefault();
+  // Retrieve data from the form
+  const Amount = document.getElementById("expenseAmount").value;
+  const des = document.getElementById("descript").value;
+  const category = document.getElementById("Category").value;
 
- 
-   alert(uid + pwd + eml);
+  // Get the user's ID from local storage
+  const token = localStorage.getItem('token');
+
+  if (!token) {
+    // Handle the case where the token is missing or not authenticated
+    console.error('User is not authenticated.');
+    return;
+  }
+
+  if (token) {
+    // If the token exists in localStorage, include it in the request headers Set the custom authorization header
+  var AuthorizationHeader = `MyAuthHeader ${token}`
+    console.log(AuthorizationHeader)
+  }
   
-   var myObj = {
-   Amount: uid,
-     des: pwd,
-   category: eml,
-   };
-   axios.post('http://localhost:3000/post/expense', myObj)
-   .then((response) => {
-     console.log(response);
-     getOnscreen();
-   })
-   .catch((err) => {
-     console.log(err);
-   });
- }
   
- async function getOnscreen() {
+  // Create an object with expense data, including the userId
+  const myObj = {
+    Amount: Amount,
+    des: des,
+    category: category
+  };
+
+  // Send a POST request to add the expense
+  await axios.post('http://localhost:3000/post/expense', myObj,{
+    headers: { Authorization: AuthorizationHeader}})
+    .then((response) => {
+      console.log(response.data);
+     return window.location.reload
+      //getOnscreen(response.data);
+    }).then(window.location.reload())
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+  
+ async function getOnscreen(response) {
  try {
-   const response = await axios.get('http://localhost:3000/get/expense'); // Fetch data from the server
+  // const response = await axios.get('http://localhost:3000/get/expense'); // Fetch data from the server
+   const expenseList = response; // Assuming the response contains an array of user objects
  
-   const expenseList = response.data; // Assuming the response contains an array of user objects
- 
-   
+   console.log(expenseList)
      // Store the fetched data in local storage
      localStorage.setItem('expenseData', JSON.stringify(expenseList));
  
@@ -45,20 +63,29 @@ function test(event) {
    console.error(error);
  }
  }
- window.addEventListener('load', () => {
-   // const storedData = localStorage.getItem('expenseData');
-   // if (storedData) {
-   //   const expenseList = JSON.parse(storedData);
-   //   const w = document.getElementById('myList');
-   //   w.innerHTML = '';
- 
-   //   expenseList.forEach((expense) => {
-   //     const x = createListItemElement(expense);
-   //     w.appendChild(x);
-   //   });
-   // }
-   getOnscreen()
- });
+
+window.addEventListener('DOMContentLoaded', () => {
+  const token = localStorage.getItem('token'); // Retrieve the token from localStorage
+  if (token) {
+    // If the token exists in localStorage, include it in the request headers Set the custom authorization header
+  const customAuthorizationHeader = `MyAuthHeader ${token}`
+    console.log(token)
+    axios
+      .get('http://localhost:3000/get/expense', {
+        headers: { Authorization: customAuthorizationHeader} // Include the token in the headers
+      })
+      .then((response) => {
+        console.log(`hhshshsshshsh` ,response.data);
+        getOnscreen(response.data);
+      })
+      .catch((err) => console.log(`sssss` ,err));
+  } else {
+        // Handle the case where the token is not found in localStorage
+    console.log('Token not found in localStorage');
+  }
+});
+
+
  async function deleteExpense(expenseId, listItemElement, userListElement) {
  try {
    console.log('User deleted:',  expenseId);
@@ -68,7 +95,8 @@ function test(event) {
    listItemElement.remove();
  
    // Fetch and update the user list again
-   await getOnscreen();
+   return window.location.reload()
+   //await getOnscreen();
  } catch (error) {
    console.error('Error deleting user:', error, expenseId);
  }

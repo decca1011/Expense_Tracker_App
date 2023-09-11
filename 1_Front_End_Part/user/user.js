@@ -1,6 +1,5 @@
 function signIn(event) {
-  event.preventDefault();
-
+  event.preventDefault()
   // Get the values from the form
   const email = document.getElementById("existingEmail").value;
   const password = document.getElementById("existingPassword").value;
@@ -13,17 +12,26 @@ function signIn(event) {
 
   // Make a POST request to your backend for sign-in
   axios.post('http://localhost:3000/post/signin', userData)
-    .then((result) => {
+    .then((response) => {
       // Check the response from the backend
-      if (result.data.success) {
+      if (response.data.success) {
         // Authentication successful, you can redirect or perform other actions
         alert("login- successful")
         console.log('Sign-in successful');
+              // Save the token in local storage
+    localStorage.setItem('token', response.data.token);
+    
+      // Access the response message and token
+      const responseMessage = response.data.message;
+      const token = response.data.token;
+
+      // Use the message and token as needed
+      console.log('Message:', responseMessage);
+      console.log('Token:', token);
+
                 // Use a relative path to your HTML file
-               // window.location.href = 'expense.html';
-
-                window.open('expense.html', 'myWindow', 'width=600,height=400');
-
+              window.location.href = '../expense/expense.html';
+ 
       } 
       else 
       {
@@ -61,8 +69,10 @@ function signUp(event) {
     // Make a POST request using Axios to send the userData object to your backend
     axios.post('http://localhost:3000/post/Data', userData)
       .then((result) => {
+        alert(`User Create Succesfuly ====>    NOW SIGN_IN`)
         console.log('POST request successful');
         console.log('Response:', result.data);
+        window.location.reload()
       })
       .catch((err) => {
         // Handle other errors here
@@ -79,16 +89,16 @@ function signUp(event) {
       });
   }
   
-  const get = () => {
-    axios.get('http://localhost:3000/get/Data')
-      .then((response) => {
-        console.log('GET request successful');
-        console.log('Response:', response.data);
+  // const get = () => {
+  //   axios.get('http://localhost:3000/get/Data')
+  //     .then((response) => {
+  //       console.log('GET request successful');
+  //       console.log('Response:', response.data);
 
-      })
-      .catch((err) => {
-        console.error('GET request error:', err);
-        // Handle errors here
-      });
-  }
+  //     })
+  //     .catch((err) => {
+  //       console.error('GET request error:', err);
+  //       // Handle errors here
+  //     });
+  // }
   

@@ -20,7 +20,8 @@ const Expence = sequelize.define('expence', {
     type: Sequelize.STRING,
     allowNull: false,
      //unique: true,
-  }
+  },
+ 
 });
 
 module.exports = Expence;

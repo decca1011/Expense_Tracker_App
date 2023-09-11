@@ -6,6 +6,9 @@ const app = express();
 const sequelize = require('./util/database');
 const router = require('./router/user');
 const expenseRoutes = require('./router/expense')
+const User = require('./models/userData');
+const expense = require('./models/expense');
+require('dotenv').config();
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -28,6 +31,8 @@ app.get('/', (req, res,) => {
     res.send('Welcome to the Expense Tracker App');
 });
 
+User.hasMany(expense);
+expense.belongsTo(User);
 
 
 sequelize.sync()
