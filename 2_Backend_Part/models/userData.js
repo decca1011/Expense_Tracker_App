@@ -30,6 +30,8 @@ const User = sequelize.define('user',{
         unique: true, // Ensure mobile is unique
          
     },
+     
+    isUserPremeuim: Sequelize.STRING ,
 
 });
 

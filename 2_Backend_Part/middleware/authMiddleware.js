@@ -1,8 +1,9 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/userData'); // Corrected the path to the model
-
+const JWT_SECRET = process.env.JWT_SECRET; 
 const authenticate = async (req, res, next) => {
   try {
+    console.log(req.header('Authorization'))
     const customAuthorizationHeader = req.header('Authorization');
 
     if (!customAuthorizationHeader || !customAuthorizationHeader.startsWith('MyAuthHeader ')) {
@@ -11,9 +12,9 @@ const authenticate = async (req, res, next) => {
 
     // Extract the token part from the custom header format
     const token = customAuthorizationHeader.split(' ')[1];
-console.log(token)
+console.log(token,"dsdsdsdsdsd")
     // Verify and decode the token as before
-     const user = jwt.verify(token, 'secretkey'); // Replace 'secretkey' with your actual secret key
+     const user = jwt.verify(token, JWT_SECRET); // Replace 'secretkey' with your actual secret key
     // console.log(user.userId);
 
     // Ensure user is found in the database

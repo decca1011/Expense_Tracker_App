@@ -42,9 +42,20 @@ async function test(event) {
 }
 
   
- async function getOnscreen(response) {
+ async function getOnscreen(response,ispremium) {
  try {
-  // const response = await axios.get('http://localhost:3000/get/expense'); // Fetch data from the server
+ 
+  const premiumButton = document.getElementById('razor');
+// var ispremium = true;
+  if (ispremium) {
+    // If the user is premium, hide the button
+    premiumButton.style.display = 'none';
+  } else {
+    // If the user is not premium, show the button
+    premiumButton.style.display = 'block';
+  }
+
+
    const expenseList = response; // Assuming the response contains an array of user objects
  
    console.log(expenseList)
@@ -74,9 +85,12 @@ window.addEventListener('DOMContentLoaded', () => {
       .get('http://localhost:3000/get/expense', {
         headers: { Authorization: customAuthorizationHeader} // Include the token in the headers
       })
-      .then((response) => {
-        console.log(`hhshshsshshsh` ,response.data);
-        getOnscreen(response.data);
+      .then((response ) => {
+        const expenseData = response.data.expenseData
+        const ispremium = response.data.ispremium
+        console.log(expenseData);
+        console.log(ispremium)
+       getOnscreen(expenseData ,ispremium);
       })
       .catch((err) => console.log(`sssss` ,err));
   } else {

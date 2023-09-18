@@ -19,7 +19,7 @@ router.post('/', authenticated, userExpense.insertExpense);
 // });
 
 // GET request to retrieve all users
-router.get('/', authenticated, userExpense.getAllExpense);
+router.get('/' , authenticated,userExpense.getAllExpense);
 
 router.delete('/:expenseId', editController.deleteExpense);
  

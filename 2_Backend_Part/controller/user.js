@@ -5,10 +5,9 @@ const JWT_SECRET = process.env.JWT_SECRET; //
 const bcyrpt = require('bcrypt')
 const User = require('../models/userData');
 
- function generatTokaen(id, name){
-  
-  console.log(name)
-  return jwt.sign({userId: id , name: name},'secretkey')
+ function generatTokaen(id,name, email){
+  console.log(email)
+  return jwt.sign({userId: id ,name: name, email: email},JWT_SECRET)
 
  }
 
@@ -27,10 +26,11 @@ exports.add_User = async (req, res, next) => {
     email: email,
     password: hash,
     mobile: mobile,
+    isUserPremeuim: false,
   });
  
   console.log('User registered successfully');
-  const token = generatTokaen(user.id, user.username);
+  const token = generatTokaen(user.id, user.username,user.email);
   res.status(201).json({
     success: true,
     message: 'User is registered successfully',
@@ -57,19 +57,19 @@ exports.add_User = async (req, res, next) => {
 
 exports.get_User = async (req, res) => {   
  const {  email, password} = req.body;
-console.log(password)
-  try {
-    const user = await   User.findOne({where: {email} })
+ console.log(password)
  
+  try {
+    const user = await User.findOne({where: {email: email} })
        // Find a user with the provided email and password
        if(user)
        {
           const passwordMatch = await bcyrpt.compare(password , user.password);
- 
+ console.log(password, passwordMatch)
           if(passwordMatch){
  
       
-      const token = generatTokaen(user.id, user.email)
+      const token = generatTokaen(user.id,user.username, user.email)
  
            res.status(200).json({ 
              success: true, message: 
@@ -80,10 +80,12 @@ console.log(password)
     
  
          else {
+          console.log("user not authorized)",)
           res.status(401).json({ success: false, message: 'User not authorized)' });
          }
         }
       else {
+        console.log("user not found)",user)
         res.status(401).json({ success: false, message: 'User not found)' });
       }
     
