@@ -50,9 +50,16 @@ async function test(event) {
   if (ispremium) {
     // If the user is premium, hide the button
     premiumButton.style.display = 'none';
+    document.getElementById('nowP').style.display = 'block';
+    document.getElementById('nowP').textContent = 'You are a premium user';
+
+    document.getElementById('dashboard').style.display = 'block';
+
   } else {
     // If the user is not premium, show the button
     premiumButton.style.display = 'block';
+    document.getElementById('nowP').textContent = ''; // Clear the message
+    document.getElementById('dashboard').style.display = 'none';
   }
 
 

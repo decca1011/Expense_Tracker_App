@@ -7,6 +7,7 @@ const sequelize = require('./util/database');
 const router = require('./router/user');
 const expenseRoutes = require('./router/expense')
 const payRoutes = require('./router/purchase')
+const dashboard = require('./router/dashboard')
 
 const User = require('./models/userData');
 const expense = require('./models/expense');
@@ -32,6 +33,8 @@ app.use('/post', router);
  app.use('/user', expenseRoutes);
    
 app.use('/purchase', payRoutes);
+
+app.use('/getYour', dashboard);
 
 app.get('/', (req, res,) => {
     res.send('Welcome to the Expense Tracker App');

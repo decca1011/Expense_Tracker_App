@@ -1,3 +1,29 @@
+// Check if the dashboard data is already in localStorage
+const dashboardData = JSON.parse(localStorage.getItem('dashboardData'));
+
+// Function to populate the dashboard data
+function getDashBoard(data) {
+  const featureList = document.getElementById('feature');
+  featureList.innerHTML = '';
+
+  data.forEach((item) => {
+    const listItem = document.createElement('li');
+    listItem.textContent = `${item.user} - ${item.total}`;
+    featureList.appendChild(listItem);
+  });
+
+  // Show the dashboard title
+  const dashboardTitle = document.getElementById('dashboard_list');
+  dashboardTitle.style.display = 'block';
+}
+
+if (dashboardData) {
+  // If data is available in localStorage, populate the dashboard
+  getDashBoard(dashboardData);
+}
+
+
+
 document.getElementById('razor').onclick = async function (e) {
    e.preventDefault();
  
@@ -43,4 +69,24 @@ document.getElementById('razor').onclick = async function (e) {
      alert('Payment failed or was canceled. Please try again.');
    });
  }
+ 
+
+
+ document.getElementById('dashboard').onclick = async function (e){
+  e.preventDefault();
+ 
+ console.log('nnnnnnnnnn')
+  const token = localStorage.getItem('token');
+  const customAuthorizationHeader = `MyAuthHeader ${token}`;
+
+  const response = await axios.get('http://localhost:3000/getYour/dashboard/', {
+    headers: { "Authorization": customAuthorizationHeader }
+  })
+    // Store the dashboard data in localStorage
+    localStorage.setItem('dashboardData', JSON.stringify(response.data));
+  console.log(response.data)
+getDashBoard(response.data)
+  
+ }
+
  

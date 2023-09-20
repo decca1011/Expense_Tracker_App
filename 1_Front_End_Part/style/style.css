@@ -1,12 +1,13 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #002E6E; /* Dark Midnight Blue background */
+    background-color: #00B9F1; /* Process Cyan header background */
     margin: 0;
     padding: 0;
  }
  
  header {
-    background-color: #00B9F1; /* Process Cyan header background */
+ 
+    background-color: #002E6E; /* Dark Midnight Blue background */
     color: #eee5e5e4;
     text-align: center;
     padding: 20px 0;
@@ -33,14 +34,19 @@ body {
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    margin-top: 40px;
  }
  
- h2 {
+a, h2 {
     font-size: 20px;
     margin-bottom: 10px;
     color: #00AAFF; /* Blue Bolt color */
  }
- 
+ a:hover{
+   font-size: 30px;
+   margin-bottom: 20px;
+   color: #ffd900; /* Blue Bolt color */
+ }
  .form-group {
     margin-bottom: 10px;
     width: 100%;
@@ -70,9 +76,10 @@ body {
     border-radius: 5px;
     cursor: pointer;
     width: 100%;
+    margin-top: 10px;
  }
  .btn-signup-toggle{
- width: 200px;
+ width: 150px;
  }
  
  .btn-signup-toggle:hover,
@@ -82,15 +89,18 @@ body {
  }
  
  /* Add this to your existing CSS file */
- .isPremium {
-    padding: 10px 20px;
-    background-color: #00AAFF; /* Blue Bolt color */
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 10%;
-    margin-top: 10px;
+ .isPremium ,.dashboard{
+   padding: 10px 20px;
+   background-color: #f6d418; /* Blue Bolt color */
+   color: #fff;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+   width: 20%;
+   position: absolute;
+   top: 75%;
+   left: 50%;
+   transform: translate(-50%, -50%);
  }
  
  .isPremium:hover {
@@ -104,7 +114,9 @@ body {
     padding: 0;
     margin: 0;
  }
- 
+ h2 {
+    color: #2255FF;
+ }
  .custom-list li {
     margin-bottom: 10px;
     padding: 5px 10px;
@@ -124,7 +136,7 @@ body {
  /* Footer */
  footer {
     text-align: center;
-    background-color: #007b5e;
+    background-color: #2255FF; /* Process Cyan header background     background-color: #007b5e;*/
     color: #fff;
     padding: 20px;
     margin-top: 100px;

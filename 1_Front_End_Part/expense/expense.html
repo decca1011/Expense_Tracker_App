@@ -36,11 +36,19 @@
     </main>
     <div>
         <button id="razor" class="isPremium">Be a Premium User</button>
+        <h2 id="nowP" style="display: none;"></h2>
+        <button class ="dashboard"   id="dashboard" style="display: none;" >GET YOUR DASHBOARD</button>
       <h2>BILL :</h2>
-    <!--   <ol id="myList"></ol> -->
+ 
       <ol id="myList" class="custom-list"></ol>
 
      </div>
+     <section>
+        <div>
+            <h2 id="dashboard_list" style="display: none;"> Dashboard</h2>
+            <ol id="feature" class="custom-list"></ol>
+        </div>
+     </section>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src=""></script>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>

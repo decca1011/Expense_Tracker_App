@@ -32,6 +32,7 @@ const User = sequelize.define('user',{
     },
      
     isUserPremeuim: Sequelize.STRING ,
+    total: Sequelize.INTEGER
 
 });
 

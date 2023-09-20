@@ -10,6 +10,8 @@ const  router = express.Router();
 router.post('/Data',controller.add_User)
  
 router.post('/signin',  controller.get_User)
+  
+
 
 module.exports = router;
 
