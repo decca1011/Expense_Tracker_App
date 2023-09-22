@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/userData'); // Corrected the path to the model
 const JWT_SECRET = process.env.JWT_SECRET; 
+
+
 const authenticate = async (req, res, next) => {
   try {
     console.log(req.header('Authorization'))

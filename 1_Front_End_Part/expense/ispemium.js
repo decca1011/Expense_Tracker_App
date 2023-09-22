@@ -8,7 +8,7 @@ function getDashBoard(data) {
 
   data.forEach((item) => {
     const listItem = document.createElement('li');
-    listItem.textContent = `${item.user} - ${item.total}`;
+    listItem.textContent = `${item.username} - ${item.total_cost}`;
     featureList.appendChild(listItem);
   });
 
@@ -69,9 +69,6 @@ document.getElementById('razor').onclick = async function (e) {
      alert('Payment failed or was canceled. Please try again.');
    });
  }
- 
-
-
  document.getElementById('dashboard').onclick = async function (e){
   e.preventDefault();
  

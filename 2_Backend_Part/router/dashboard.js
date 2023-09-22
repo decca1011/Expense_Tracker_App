@@ -11,10 +11,4 @@ const authenticated = require('../middleware/authMiddleware')
  
 router.get('/dashboard', authenticated, dashboard);
 
-// router.get('/dashboard', (req,res,next)=>{
-//    console.log(req)
-// });
- 
-
-
 module.exports = router

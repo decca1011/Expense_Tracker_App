@@ -19,21 +19,14 @@ async function test(event) {
   var AuthorizationHeader = `MyAuthHeader ${token}`
     console.log(AuthorizationHeader)
   }
-  
-  
   // Create an object with expense data, including the userId
-  const myObj = {
-    Amount: Amount,
-    des: des,
-    category: category
-  };
-
+  const myObj = { Amount: Amount ,  des: des , category: category };  
   // Send a POST request to add the expense
   await axios.post('http://localhost:3000/post/expense', myObj,{
     headers: { Authorization: AuthorizationHeader}})
     .then((response) => {
       console.log(response.data);
-     return window.location.reload
+    // return window.location.reload
       //getOnscreen(response.data);
     }).then(window.location.reload())
     .catch((err) => {
@@ -44,15 +37,12 @@ async function test(event) {
   
  async function getOnscreen(response,ispremium) {
  try {
- 
   const premiumButton = document.getElementById('razor');
-// var ispremium = true;
   if (ispremium) {
     // If the user is premium, hide the button
     premiumButton.style.display = 'none';
     document.getElementById('nowP').style.display = 'block';
     document.getElementById('nowP').textContent = 'You are a premium user';
-
     document.getElementById('dashboard').style.display = 'block';
 
   } else {
@@ -61,18 +51,12 @@ async function test(event) {
     document.getElementById('nowP').textContent = ''; // Clear the message
     document.getElementById('dashboard').style.display = 'none';
   }
-
-
    const expenseList = response; // Assuming the response contains an array of user objects
- 
    console.log(expenseList)
-     // Store the fetched data in local storage
-     localStorage.setItem('expenseData', JSON.stringify(expenseList));
+   localStorage.setItem('expenseData', JSON.stringify(expenseList));  // Store the fetched data in local storage
  
    var w = document.getElementById('myList');
- 
    w.innerHTML = ''; // Clear the list before populating
- 
    expenseList.forEach((expense) => {
      const x = createListItemElement(expense);
      w.appendChild(x);
