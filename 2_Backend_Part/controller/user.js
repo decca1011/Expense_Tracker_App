@@ -4,56 +4,65 @@ dotenv.config(); // Load environment variables from .env file
 const JWT_SECRET = process.env.JWT_SECRET; //
 const bcyrpt = require('bcrypt')
 const User = require('../models/userData');
+const sequelize = require('../util/database'); 
 
- function generatTokaen(id,name, email){
-  console.log(email)
-  return jwt.sign({userId: id ,name: name, email: email},JWT_SECRET)
-
- }
+function generatTokaen(id, name, email) {
+  console.log(email);
+  return jwt.sign({ userId: id, name: name, email: email }, JWT_SECRET);
+}
 
 exports.add_User = async (req, res, next) => {
-  const username = req.body.username;
-  const email = req.body.email;
-  const password = req.body.password;
-  const mobile = req.body.mobile;
-  const saltRounds = 10 ;
+  // Start a transaction
+  const t = await sequelize.transaction();
 
   try {
-   const hash = await  bcyrpt.hash(password, saltRounds)
-    
-  const user = await User.create({
-    username: username,
-    email: email,
-    password: hash,
-    mobile: mobile,
-    isUserPremeuim: false,
-    total: 0
-   
-  });
- 
-  console.log('User registered successfully');
-  const token = generatTokaen(user.id, user.username,user.email);
-  res.status(201).json({
-    success: true,
-    message: 'User is registered successfully',
-    token: token,
-    
-  });
-    }
-    catch(err){
-      if (err.name === 'SequelizeUniqueConstraintError') 
+    // Get the user data from the request body
+    const username = req.body.username;
+    const email = req.body.email;
+    const password = req.body.password;
+    const mobile = req.body.mobile;
+    const saltRounds = 10;
+
+    // Hash the password
+    const hash = await bcyrpt.hash(password, saltRounds);
+
+    // Create the user in the database
+    const user = await User.create(
       {
-        if (err.fields.email) {
-                     return res.status(409).json({ error: 'Email already exists' });
-        } 
-        else if (err.fields.mobile) {
-                  return res.status(409).json({ error: 'Mobile already exists' });
-        }
-      }
-     console.error(err);
-      res.status(500).json({ error: 'Server error' });
-    }
-  };
+        username,
+        email,
+        password: hash,
+        mobile,
+        isUserPremeuim: false,
+        total: 0,
+      },
+      { transaction: t }
+    );
+
+    // Generate a token for the user
+    const token = generatTokaen(user.id, user.username, user.email);
+
+    // Commit the transaction
+    await t.commit();
+
+    // Send the response
+    res.status(201).json({
+      success: true,
+      message: 'User is registered successfully',
+      token,
+    });
+  } catch (err) {
+    // Roll back the transaction if there is an error
+    await t.rollback();
+
+    // Log the error
+    console.error('Error adding user:', err);
+
+    // Send an error response
+    res.status(500).json({ error: 'Failed to add user' });
+  }
+};
+
       
 exports.get_User = async (req, res) => {   
  const {  email, password} = req.body;

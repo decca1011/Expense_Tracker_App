@@ -1,47 +1,54 @@
 const ExpenseModel = require('../models/expense'); // Assuming you have a UserModel defined in models/user.js
 const User = require('../models/userData');  // Controller function to insert a new user
+const sequelize = require('../util/database'); 
 
 exports.insertExpense = async (req, res,next) => {
-try {
-      const Amount =req.body.Amount;
-      const des =req.body.des;
-      const category = req.body.category;
-      const userId = req.user.id;
-      
-      // Use UserModel.create function to insert the user into the database
-      const create_Expense = await ExpenseModel.create({
-            Amount : Amount,
-            des: des,
-           category: category,
-           userId: userId
-       })
-   
-      const user = await User.findByPk(userId)
-         // Update the user's total balance
- 
-         if (!user) {
-          return res.status(404).json({ error: 'User not found' });
-        }
-    
-        // Update the user's total balance
-        const updatedTotal = parseInt(user.total) + parseInt(Amount)
-    await user.update({ total: updatedTotal},);
+const t = await sequelize.transaction();
+  try {
+  const Amount =req.body.Amount;
+  const des =req.body.des;
+  const category = req.body.category;
+  const userId = req.user.id;
 
-    console.log(user)
-       // Create a response object with the expense data
-       const responseData = {
-                id: create_Expense.id,
-                Amount: create_Expense.Amount,
-                des: create_Expense.des,
-                category: create_Expense.category,
-              };  
-      // Send the response
-      res.status(201).json(responseData); 
+  // Use UserModel.create function to insert the user into the database
+  const create_Expense = await ExpenseModel.create(
+            {
+              Amount : Amount,
+              des: des,
+              category: category,
+              userId: userId 
+            },
+              {transaction: t})
 
-    }  catch (err) {
+  const user = await User.findByPk(userId)
+  // Update the user's total balance
+
+  if (!user) {
+  await t.rollback();
+  return res.status(404).json({ error: 'User not found' });
+
+  }
+
+  // Update the user's total balance
+  const updatedTotal = parseInt(user.total) + parseInt(Amount)
+  await user.update({ total: updatedTotal}, {transaction: t});
+
+  // Create a response object with the expense data
+  const responseData = {
+        id: create_Expense.id,
+        Amount: create_Expense.Amount,
+        des: create_Expense.des,
+        category: create_Expense.category,
+  };  
+  // Send the response
+  await t.commit();
+  res.status(201).json(responseData); 
+
+ }  catch (err) {
+  await t.rollback();
   console.error('Error inserting  DAta:', err);
   res.status(500).json({ err: 'Failed to insert Expense'})
-   }
+ }
 }
 
 exports.getAllExpense = async (req, res, next) => {
