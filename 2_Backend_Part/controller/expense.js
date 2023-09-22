@@ -6,8 +6,8 @@ try {
       const Amount =req.body.Amount;
       const des =req.body.des;
       const category = req.body.category;
-      const userId = req.user.id
-
+      const userId = req.user.id;
+      
       // Use UserModel.create function to insert the user into the database
       const create_Expense = await ExpenseModel.create({
             Amount : Amount,
@@ -15,7 +15,19 @@ try {
            category: category,
            userId: userId
        })
-       
+   
+      const user = await User.findByPk(userId)
+         // Update the user's total balance
+ 
+         if (!user) {
+          return res.status(404).json({ error: 'User not found' });
+        }
+    
+        // Update the user's total balance
+        const updatedTotal = parseInt(user.total) + parseInt(Amount)
+    await user.update({ total: updatedTotal},);
+
+    console.log(user)
        // Create a response object with the expense data
        const responseData = {
                 id: create_Expense.id,
@@ -27,8 +39,8 @@ try {
       res.status(201).json(responseData); 
 
     }  catch (err) {
-  console.error('Error inserting  DAta:', error);
-  res.status(500).json({ error: 'Failed to insert Expense'})
+  console.error('Error inserting  DAta:', err);
+  res.status(500).json({ err: 'Failed to insert Expense'})
    }
 }
 
@@ -50,7 +62,13 @@ exports.getAllExpense = async (req, res, next) => {
 
     // Fetch user data (if needed)
     const user = await User.findByPk(req.user.id); 
-    const ispremium = Boolean(user.isUserPremeuim);
+    var ispremium = user.isUserPremeuim ;
+    if(ispremium == 0){
+      ispremium = false;
+    }
+    else {
+      ispremium = true;
+    }
     console.log(ispremium);
 
     // Send the formatted expense data as a response

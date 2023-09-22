@@ -38,7 +38,7 @@ async function test(event) {
  async function getOnscreen(response,ispremium) {
  try {
   const premiumButton = document.getElementById('razor');
-  if (ispremium) {
+  if (ispremium ) {
     // If the user is premium, hide the button
     premiumButton.style.display = 'none';
     document.getElementById('nowP').style.display = 'block';

@@ -9,7 +9,7 @@ function signIn(event) {
     email: email,
     password: password
   };
-
+  localStorage.clear()
   // Make a POST request to your backend for sign-in
   axios.post('http://localhost:3000/post/signin', userData)
     .then((response) => {

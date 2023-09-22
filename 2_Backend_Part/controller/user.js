@@ -17,8 +17,7 @@ exports.add_User = async (req, res, next) => {
   const password = req.body.password;
   const mobile = req.body.mobile;
   const saltRounds = 10 ;
- 
- 
+
   try {
    const hash = await  bcyrpt.hash(password, saltRounds)
     
@@ -28,6 +27,7 @@ exports.add_User = async (req, res, next) => {
     password: hash,
     mobile: mobile,
     isUserPremeuim: false,
+    total: 0
    
   });
  
@@ -55,8 +55,6 @@ exports.add_User = async (req, res, next) => {
     }
   };
       
-    
-
 exports.get_User = async (req, res) => {   
  const {  email, password} = req.body;
  console.log(password)
