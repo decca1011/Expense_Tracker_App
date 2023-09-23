@@ -1,88 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expense Tracker App</title>
-    <link rel="stylesheet" href="../style/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expense Tracker App</title>
+  <link rel="stylesheet" href="../style/style.css">
 </head>
 <body>
-    <header>
-        <h1>Expense Tracker App</h1>
-        <p>Sign In / Sign Up</p>
-    </header>
-    <main>
-        <section class="container">
-            <div id="signInContainer"> <!-- Added a container for Sign In form -->
-                <h2>Existing User Sign In</h2>
-                <form id="signInForm">
-                    <div class="form-group">
-                        <label for="existingEmail">Email:</label>
-                        <input type="email" id="existingEmail" name="existingEmail" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="existingPassword">Password:</label>
-                        <input type="password" id="existingPassword" name="existingPassword" required>
-                    </div>
-                    <button class="btn-signin" onclick="signIn(event)">Sign In</button>
-                </form>
-            </div>
-            <div id="signUpContainer" style="display: none;"> <!-- Added a container for Sign Up form -->
-                <h2>Create an Account</h2>
-                <form id="signUpForm">
-                    <div class="form-group">
-                        <label for="username">Username:</label>
-                        <input type="text" id="username" name="username" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password:</label>
-                        <input type="password" id="password" name="password" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="mobile">Mobile Number:</label>
-                        <input type="tel" id="mobile" name="mobile" required>
-                    </div>
-                    <button class="btn-signup" onclick="signUp(event)">Sign Up</button>
-                </form>
-            </div><br><br>
-            
-            <button class="btn-signup-toggle" onclick="toggleSignUp()">New User? Sign Up</button>
-        </section>
-    </main>
-    <footer>
-      
-            <div class="row text-center"></div>
-                    <ul>
-                        <li class="list-inline-item"><a href="#">Home</a></li>
-                        <li class="list-inline-item"><a href="#">Sign In/Up</a></li>
-                        <li class="list-inline-item"><a href="#">Contact Us</a></li>
-                    </ul>
-         <p>&copy; 2023 Expense Tracker App</p>
-    </footer>
-    
-    <script>
-     
-      function toggleSignUp() {
-       
+  <header>
+    <h1>Expense Tracker App</h1>
+    <p>Sign In / Sign Up</p>
+  </header>
+  <main>
+    <section class="container">
+      <div id="signInContainer"> <!-- Added a container for Sign In form -->
+
+        <form id="signInForm">
+          <h2>Existing User Sign In</h2>
+          <div class="form-group">
+            <label for="existingEmail">Email:</label>
+            <input type="email" id="existingEmail" name="existingEmail" required>
+          </div>
+          <div class="form-group">
+            <label for="existingPassword">Password:</label>
+            <input type="password" id="existingPassword" name="existingPassword" required>
+          </div>
+          <button class="btn-signin" onclick="signIn(event)">Sign In</button>
+          <a href="#" onclick="openForgotPasswordModal()">Forgot Password?</a><br />
+        </form>
+      </div>
+      <form>
+        <div id="forgot-password-modal" style="display: none;">
+            <h2>Forgot Password</h2>
+            <input type="email" placeholder="Enter your email address" id="forgot-password-email" />
+            <button type="button" onclick="forgotPassword()">Submit</button>
+            <button type="button" onclick="closeForgotPasswordModal()">Cancel</button>
+          </div>
+          <div id="signUpContainer" style="display: none;">
+      </form>
  
-             var signUpButton = document.querySelector(".btn-signup-toggle");
-             var signUpContainer = document.getElementById("signUpContainer");
-         var signInForm = document.getElementById("signInForm");
- 
-         // Hide the sign-in form
-         signInForm.style.display = "none";
- 
-         // Show the sign-up container
-         signUpContainer.style.display = "block";
- 
-             signUpButton.style.display = "none";
-         }
-   </script>
-   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="user.js"></script>
+        <form id="signUpForm">
+          <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+          </div>
+          <div class="form-group">
+            <label for="mobile">Mobile Number:</label>
+            <input type="tel" id="mobile" name="mobile" required>
+          </div>
+          <button class="btn-signup" onclick="signUp(event)">Sign Up</button>
+        </form>
+      </div><br><br>
+
+      <button class="btn-signup-toggle" id="sign_up_button" onclick="toggleSignUp()">New User? Sign Up</button>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 Expense Tracker App</p>
+  </footer>
+
+  <script>
+    function toggleSignUp() {
+      var signUpButton = document.querySelector(".btn-signup-toggle");
+      var signUpContainer = document.getElementById("signUpContainer");
+      var signInForm = document.getElementById("signInForm");
+
+      // Hide the sign-in form
+      signInForm.style.display = "none";
+
+      // Show the sign-up container
+      signUpContainer.style.display = "block";
+
+      // Hide the sign-up toggle button
+      signUpButton.style.display = "none";
+    }
+  </script>
+
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="user.js"></script>
 </body>
 </html>

@@ -88,17 +88,56 @@ function signUp(event) {
         }
       });
   }
-  
-  // const get = () => {
-  //   axios.get('http://localhost:3000/get/Data')
-  //     .then((response) => {
-  //       console.log('GET request successful');
-  //       console.log('Response:', response.data);
 
-  //     })
-  //     .catch((err) => {
-  //       console.error('GET request error:', err);
-  //       // Handle errors here
-  //     });
-  // }
   
+  // Function to open the forgot password modal
+function openForgotPasswordModal() {
+  const modal = document.getElementById('forgot-password-modal');
+  modal.style.display = 'block';
+  const sign_in_form = document.getElementById('signInForm');
+  const sign_up_button  = document.getElementById('sign_up_button')
+  sign_in_form.style.display = ' none'
+  sign_up_button.style.display = ' none'
+}
+
+// Function to close the forgot password modal
+function closeForgotPasswordModal() {
+  const modal = document.getElementById('forgot-password-modal');
+  modal.style.display = 'none';
+  window.location.reload()
+}
+
+// Function to handle forgot password submission
+async function forgotPassword() {
+  const emailInput = document.getElementById('forgot-password-email').value;
+  const User_Data ={
+    email: emailInput,
+  } 
+  //backend api route called /password/forgotpassword via axios
+try{
+  await  axios.post('http://localhost:3000/called/password/forgotpassword ', User_Data)
+  .then((result) => {
+    console.log(`Forgot password for email: ${email}`);
+    alert('check_your_email')
+    console.log('POST request successful');
+    console.log('Response:', result.data);
+     return window.location.reload()
+  })
+  .catch((err) => {
+    alert('Enter_valid_email_Id')
+    console.log(err)
+  })
+
+} catch (err){
+  console.log(err)
+}
+ 
+ () => {
+  openForgotPasswordModal()
+ }
+}
+
+
+
+
+

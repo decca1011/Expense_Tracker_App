@@ -24,7 +24,7 @@ body {
     height: 50vh;
  }
  
- .container {
+ .container,  #forgot-password-modal {
     background-color: #fff;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
@@ -38,14 +38,14 @@ body {
  }
  
 a, h2 {
-    font-size: 20px;
+    font-size: 15px;
     margin-bottom: 10px;
     color: #00AAFF; /* Blue Bolt color */
  }
  a:hover{
-   font-size: 30px;
+   font-size: 20px;
    margin-bottom: 20px;
-   color: #ffd900; /* Blue Bolt color */
+   color: #1bd93b; /* Blue Bolt color */
  }
  .form-group {
     margin-bottom: 10px;
@@ -87,7 +87,17 @@ a, h2 {
  .btn-signup:hover {
     background-color: #00B9F1; /* Process Cyan color on hover */
  }
- 
+/* 
+ #forgot-password-modal {
+   position: fixed;
+   top: 160px;
+   left: 400px;
+   width: 300px;
+   height: 50%;
+   background-color: rgba(0, 0, 0, 0.5);
+   z-index: 100;
+ } */
+
  /* Add this to your existing CSS file */
  .isPremium ,.dashboard{
    padding: 10px 20px;

@@ -22,6 +22,7 @@ app.use(bodyParser.json());
 
 // Define your routes for 'post', 'get', and 'delete' here
 app.use('/post', router);
+app.use('/called', router);
 
  // API endpoint to insert a new user
  app.use('/post/expense', expenseRoutes);
