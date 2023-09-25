@@ -8,6 +8,4 @@ package.json
 .env
 
  controller/resetpassword.js
- controller\resetpassword.js
- 2_Backend_Part/controller/resetpassword.js
-2_Backend_Part\controller\resetpassword.js
+ 

@@ -20,7 +20,7 @@ const forgotpassword = async (req, res) => {
 
             const msg = {
                 to: email, // Change to your recipient
-                from: 'yj.rocks.2411@gmail.com', // Change to your verified sender
+                from: 'deepakpatil101197@gmail.com' ,
                 subject: 'Sending with SendGrid is Fun',
                 text: 'and easy to do anywhere, even with Node.js',
                 html: `<a href="http://localhost:3000/password/resetpassword/${id}">Reset password</a>`,
@@ -36,6 +36,8 @@ const forgotpassword = async (req, res) => {
 
             })
             .catch((error) => {
+                
+            
                console.log(error)
                 //throw new Error(error);
             })
@@ -53,6 +55,7 @@ const forgotpassword = async (req, res) => {
 
 const resetpassword = (req, res) => {
     const id =  req.params.id;
+    console.log("get====>" ,id)
     Forgotpassword.findOne({ where : { id }}).then(forgotpasswordrequest => {
         if(forgotpasswordrequest){
             forgotpasswordrequest.update({ active: false});

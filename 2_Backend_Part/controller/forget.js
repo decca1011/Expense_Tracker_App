@@ -1,38 +1,64 @@
-var Brevo = require('@getbrevo/brevo');
+ 
+
+const Sib = require('sib-api-v3-sdk') 
+
+
 require('dotenv').config();
-var defaultClient = Brevo.ApiClient.instance;
+ 
+const id = '96c81373-6d2b-452f-a65d-6ce77e457e39'
 
-// Configure API key authorization: api-key
-var apiKey = defaultClient.authentications['api-key'];
-apiKey.apiKey =  process.env.API_KEY 
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKey.apiKeyPrefix = 'Token';
+const client = Sib.ApiClient.instance;
 
-// Configure API key authorization: partner-key
-var partnerKey = defaultClient.authentications['partner-key'];
-partnerKey.apiKey = process.env.API_KEY;
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//partnerKey.apiKeyPrefix = 'Token';
+const apikey = client.authentications['api-key']
 
-var apiInstance = new Brevo.TransactionalEmailsApi();
+apikey.apiKey = process.env.API_KEY
+ 
+exports.forget_password_send_email = async (req,res)=>{
+   const to_person = req.body.email
 
-var sendSmtpEmail = new Brevo.SendSmtpEmail({
+   const tranEmailApi = new Sib.TransactionalEmailsApi()
 
+   const sender = {
+      email: 'deepakpatil101197@gmail.com',
+   }
+   const receivers = [{ 
+     email:  to_person,
+    }]
+
+    try{
+      await  tranEmailApi.sendTransacEmail({
+         sender,
+         to: receivers,
+         subject: 'forget fassword',
+         textContent: 'hello <a href="http://localhost:3000/password/resetpassword/${id}">Reset password</a>',
+         html: `<a href="http://localhost:3000/password/resetpassword/${id}">Reset password</a>`,
+      }).then((result)=>{
+         console.log("success", result);
+     })
+    
+     res.status(201).json({
+         success: true,
+         message: 'Email sent successfully',
+         
+       });
+
+    }catch (err ) {
+     
+      console.log("get error ======> ",err)
+      res.status(500).json({ error: 'Failed to add user'} );
+    }
+
+}
+
+ exports.reset_password_by_id = async (req,res) => {
+   try {
+
+      const id =  req.params.id;
+      console.log(req.params.id)
+      
+   }
+   catch (err) {
+         console.log('err')
+   }
    
-      "sender": "deepakpatil101197@gmail.com",
-      "to": ["errdeepakpatil505@gmail.com"],
-      "subject": "My email subject",
-      "body": "My email body"
-
-}); // SendSmtpEmail | Values to send a transactional email
-
-apiInstance.sendTransacEmail(sendSmtpEmail).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-
-
-
-
+ }

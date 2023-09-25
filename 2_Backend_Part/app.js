@@ -13,7 +13,7 @@ const resetpassword = require('./router/resetpassword')
 const User = require('./models/userData');
 const expense = require('./models/expense');
 const Order = require('./models/orders')
-const password = require('./models/forgotpassword')
+const forget_password = require('./models/forgotpassword')
  
 require('dotenv').config();
 
@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 // Define your routes for 'post', 'get', and 'delete' here
 app.use('/post', router);
 app.use('/called/password',resetpassword);
-
+app.use('/password',resetpassword)
  // API endpoint to insert a new user
  app.use('/post/expense', expenseRoutes);
 
@@ -49,8 +49,8 @@ expense.belongsTo(User);
 User.hasMany(Order);
 Order.belongsTo(User);
 
-// User.belongsTo(password)
-// password.belongsTo(User)
+User.hasMany(forget_password);
+forget_password.belongsTo(User);
 
 sequelize.sync()
     .then(() => {
