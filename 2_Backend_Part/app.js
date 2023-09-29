@@ -25,6 +25,7 @@ app.use(bodyParser.json());
 // Define your routes for 'post', 'get', and 'delete' here
 app.use('/post', router);
 app.use('/called/password',resetpassword);
+
 app.use('/password',resetpassword)
  // API endpoint to insert a new user
  app.use('/post/expense', expenseRoutes);
@@ -59,3 +60,6 @@ sequelize.sync()
         });
     })
     .catch(err => console.log(err));
+
+
+    

@@ -2,6 +2,7 @@ async function test(event) {
   event.preventDefault();
   // Retrieve data from the form
   const Amount = document.getElementById("expenseAmount").value;
+  const Income = document.getElementById("incomeAmount").value;
   const des = document.getElementById("descript").value;
   const category = document.getElementById("Category").value;
 
@@ -20,7 +21,7 @@ async function test(event) {
     console.log(AuthorizationHeader)
   }
   // Create an object with expense data, including the userId
-  const myObj = { Amount: Amount ,  des: des , category: category };  
+  const myObj = { Amount: Amount ,Income:Income,  des: des , category: category };  
   // Send a POST request to add the expense
   await axios.post('http://localhost:3000/post/expense', myObj,{
     headers: { Authorization: AuthorizationHeader}})
