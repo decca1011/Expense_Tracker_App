@@ -54,6 +54,7 @@
 exports.editExpense = async (req, res, next) => {
   const expenseId = req.body.expenseId;
   const updatedAmount = req.body.Amount;
+  const updatedIncome = req.body.Income;
   const updatedDes = req.body.des;
   const updatedCategory = req.body.category;
 
@@ -83,6 +84,7 @@ exports.editExpense = async (req, res, next) => {
 
     // Update the expense
     expense.Amount = updatedAmount;
+    expense.Income = updatedIncome
     expense.des = updatedDes;
     expense.category = updatedCategory;
     await expense.save();

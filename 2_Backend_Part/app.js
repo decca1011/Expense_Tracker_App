@@ -9,11 +9,14 @@ const expenseRoutes = require('./router/expense')
 const payRoutes = require('./router/purchase')
 const dashboard = require('./router/dashboard')
 const resetpassword = require('./router/resetpassword')
+const report = require('./router/report')
 
 const User = require('./models/userData');
 const expense = require('./models/expense');
 const Order = require('./models/orders')
 const forget_password = require('./models/forgotpassword')
+const DownloadReport = require('./models/download');
+const download = require('./models/download');
  
 require('dotenv').config();
 
@@ -40,6 +43,8 @@ app.use('/purchase', payRoutes);
 
 app.use('/getYour', dashboard);
 
+app.use('/get', report);
+
 app.get('/', (req, res,) => {
     res.send('Welcome to the Expense Tracker App');
 });
@@ -52,6 +57,9 @@ Order.belongsTo(User);
 
 User.hasMany(forget_password);
 forget_password.belongsTo(User);
+
+User.hasMany(DownloadReport);
+ DownloadReport.belongsTo(User);
 
 sequelize.sync()
     .then(() => {

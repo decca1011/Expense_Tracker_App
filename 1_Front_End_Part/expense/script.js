@@ -1,8 +1,8 @@
 async function test(event) {
   event.preventDefault();
   // Retrieve data from the form
-  const Amount = document.getElementById("expenseAmount").value;
-  const Income = document.getElementById("incomeAmount").value;
+  const Amount = 0 + document.getElementById("expenseAmount").value;
+  const Income = 0 + document.getElementById("incomeAmount").value; 
   const des = document.getElementById("descript").value;
   const category = document.getElementById("Category").value;
 
@@ -110,6 +110,7 @@ window.addEventListener('DOMContentLoaded', () => {
  
  async function editExpense(expense, listItemElement, userListElement) {
  const updatedAmount = prompt('Enter updated Amount:', expense.Amount);
+ const updatedIncome = prompt('Enter updated Amount:', expense.Income);
  const updateddes = prompt('Enter updated description:',expense.des);
  const updatedcategory = prompt('Enter updated category:', expense.category);
  
@@ -117,6 +118,7 @@ window.addEventListener('DOMContentLoaded', () => {
    const updatedUserData = {
      expenseId: expense.id,
      Amount: updatedAmount,
+     Incoe: updatedIncome,
      des: updateddes,
      category: updatedcategory,
    };
@@ -139,15 +141,8 @@ window.addEventListener('DOMContentLoaded', () => {
  
  function createListItemElement(expense) {
  const x = document.createElement('LI');
- const getElement =
-   'Amount => ' +
-   expense.Amount +
-   ',   ' +
-   'Description => ' +
-   expense.des +
-   ' ,    ' +
-   '  Category => ' +
-   expense.category;
+ const getElement =  'Amount => '+expense.Amount +',   ' + 'Income => '+ expense.Income+',   '+ 'Description => ' + expense.des +  ' ,    ' + '  Category => ' +  expense.category;
+
  const t = document.createTextNode(getElement);
  x.appendChild(t);
   

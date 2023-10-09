@@ -1,11 +1,19 @@
 const ExpenseModel = require('../models/expense'); // Assuming you have a UserModel defined in models/user.js
 const User = require('../models/userData');  // Controller function to insert a new user
+const DownloadReport = require('../models/download')
 const sequelize = require('../util/database'); 
+require('dotenv').config();
+const S3Service = require('../service/S3service')
+const UserService = require('../service/userservices')
+const Download_Service = require('../service/Download_link');
+const download = require('../models/download');
 
-exports.insertExpense = async (req, res,next) => {
+
+const insertExpense = async (req, res) => {
 const t = await sequelize.transaction();
   try {
   const Amount =req.body.Amount;
+  const Income = req.body.Income 
   const des =req.body.des;
   const category = req.body.category;
   const userId = req.user.id;
@@ -14,6 +22,7 @@ const t = await sequelize.transaction();
   const create_Expense = await ExpenseModel.create(
             {
               Amount : Amount,
+              Income: Income,
               des: des,
               category: category,
               userId: userId 
@@ -37,6 +46,7 @@ const t = await sequelize.transaction();
   const responseData = {
         id: create_Expense.id,
         Amount: create_Expense.Amount,
+        Income: create_Expense.Income,
         des: create_Expense.des,
         category: create_Expense.category,
   };  
@@ -51,22 +61,11 @@ const t = await sequelize.transaction();
  }
 }
 
-exports.getAllExpense = async (req, res, next) => {
+const getAllExpense = async (req, res) => {
   try {
-    // Find all expenses associated with the user
-    const expenses = await ExpenseModel.findAll({ 
-      where: { userId: req.user.id } , 
-      attributes:['id','Amount','des','category']
-     });
-
-    // Map the expenses to a desired format
-    const expenseData = expenses.map(expense => ({
-      id: expense.id,
-      Amount: expense.Amount,
-      des: expense.des,
-      category: expense.category,
-    }));
-
+  
+    const expenseData = await UserService.getExpense(req,res)
+ 
     // Fetch user data (if needed)
     const user = await User.findByPk(req.user.id); 
     var ispremium = user.isUserPremeuim ;
@@ -79,9 +78,59 @@ exports.getAllExpense = async (req, res, next) => {
     console.log(ispremium);
 
     // Send the formatted expense data as a response
+   
     res.status(200).json({expenseData,ispremium});
   } catch (error) {
     console.error('Error retrieving expense data:', error);
     res.status(500).json({ error: 'Failed to retrieve expense data' });
   }
 };
+
+
+const downloadExpense = async (req, res) => {
+try {
+ 
+// const expensesResponse = await getAllExpense(req);
+const expensesResponse = await UserService.getExpense(req);
+// Convert the response to a string
+const strinfiedExpense = JSON.stringify(expensesResponse);
+const  userId = req.user.id
+
+const filename = `Expense${userId}/${new Date().toISOString()}.txt`;
+ 
+const  fileURL = await S3Service.uploadToS3(strinfiedExpense, filename);
+
+await DownloadReport.create({
+  downloadlink : fileURL,
+  userId: userId 
+
+})
+
+await  res.status(200).json({ fileURL, success: true });
+} catch (error) {
+console.error('Error downloading expense data:', error);
+res.status(500).json({ error: 'Failed to download expense data' });
+}
+};
+
+const getdownloadExpense = async (req,res) => {
+  console.log(req.body)
+  try {
+  
+    const Link_Data = await Download_Service.get_link(req,res)
+   console.log(Link_Data)
+    res.status(200).json({Link_Data});
+  } catch (error) {
+    console.error('Error retrieving download data:', error);
+    res.status(500).json({ error: 'Failed to retrieve data' });
+  }
+}
+
+module.exports = {
+  insertExpense, getAllExpense , downloadExpense, getdownloadExpense
+}
+
+
+
+
+

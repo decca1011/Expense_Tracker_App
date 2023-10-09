@@ -20,6 +20,12 @@ router.get('/' , authenticated,userExpense.getAllExpense);
 router.delete('/:expenseId', editController.deleteExpense);
  
 router.post('/edit',  editController.editExpense);
+ 
+router.get('/download' , authenticated ,userExpense.downloadExpense)
+router.get('/downloadlink' , authenticated ,userExpense.getdownloadExpense)
+// router.get('/download' ,  authenticated ,(req,res) => {
+//    console.log( req.user)
+// })
 
 module.exports = router;
 

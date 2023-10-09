@@ -69,6 +69,7 @@ document.getElementById('razor').onclick = async function (e) {
      alert('Payment failed or was canceled. Please try again.');
    });
  }
+ 
  document.getElementById('dashboard').onclick = async function (e){
   e.preventDefault();
  
