@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../style/style.css" />
+    <link rel="stylesheet" type="text/css" href="../style/style_table.css" />
     <title>Bill Generator</title>
 </head>
 <body>
@@ -42,16 +43,31 @@
         <button id="razor" class="isPremium">Be a Premium User</button>
         <h2 id="nowP" style="display: none;"></h2>
         <button class ="dashboard"   id="dashboard" style="display: none;" >GET YOUR DASHBOARD</button>
-      <h2>BILL :</h2>
- 
-      <ol id="myList" class="custom-list"></ol>
-
-     </div>
-     <section>
-        <div>
-            <h2 id="dashboard_list" style="display: none;"> Dashboard</h2>
+     
+<section>
+    <section>
+        <div class="flex-container">
+         
+          <div class="custom-list-container">
+            <h2>BILL :</h2>
+            <ol class="custom-list" id="myList"></ol>
+            <div class="pagination">
+              <button id="prevPageButton">Previous Page</button>
+              <button id="nextPageButton">Next Page</button>
+            </div>
+          </div>
+      
+          <div class="custom-list-container">
+            <h2 id="dashboard_list" style="display: none;">Dashboard</h2>
             <ol id="feature" class="custom-list"></ol>
+            <div class="pagination">
+              <button id="prevPageButton2">Previous Page</button>
+              <button id="nextPageButton2">Next Page</button>
+            </div>
+          </div>
         </div>
+      </section>
+      
      </section>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src=""></script>

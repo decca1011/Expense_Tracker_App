@@ -63,9 +63,7 @@ const t = await sequelize.transaction();
 
 const getAllExpense = async (req, res) => {
   try {
-  
-    const expenseData = await UserService.getExpense(req,res)
- 
+    const expenseData = await UserService.getExpense(req,res) 
     // Fetch user data (if needed)
     const user = await User.findByPk(req.user.id); 
     var ispremium = user.isUserPremeuim ;
@@ -89,7 +87,6 @@ const getAllExpense = async (req, res) => {
 
 const downloadExpense = async (req, res) => {
 try {
- 
 // const expensesResponse = await getAllExpense(req);
 const expensesResponse = await UserService.getExpense(req);
 // Convert the response to a string
@@ -126,8 +123,38 @@ const getdownloadExpense = async (req,res) => {
   }
 }
 
+
+
+ const paginatedResults = async (req,res) => {
+  const Item_Per_page = 2;
+  const page = parseInt(req.query.page);
+  // const limit = parseInt(req.query.limit);
+ 
+ 
+   download.findAll({
+      offset: (page-1)*Item_Per_page,
+      limit: Item_Per_page,
+    })
+.then((download) => {
+  res.json({
+  download: download,
+  currentPage: page ,
+  hasNextpage: Item_Per_page* page ,
+  nextPage: page + 1,
+  hasPreviouspage: page > 1,
+  //lastPage: Math.ceil(totalItems/Item_Per_page),
+
+  })
+})
+
+.catch((err) => {
+console.log(err)
+})
+ }
+
+
 module.exports = {
-  insertExpense, getAllExpense , downloadExpense, getdownloadExpense
+  insertExpense, getAllExpense , downloadExpense, getdownloadExpense , paginatedResults
 }
 
 

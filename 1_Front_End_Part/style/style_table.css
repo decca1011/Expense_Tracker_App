@@ -46,3 +46,57 @@ tfoot {
   font-weight: bold;
 }
 
+ /* Style the flex container to display items side by side */
+.flex-container {
+  display: flex;
+}
+
+/* Style the container for the list and pagination buttons */
+.custom-list-container {
+  width: 600px; /* Adjust the width as needed */
+  border: 5px solid #ccc;
+  padding: 10px;
+  overflow-y: scroll; /* Enable vertical scrolling if needed */
+  max-height: 300px; /* Set a max height for the scrollable container */
+  background-color: #fff; /* Set the background color to white */
+  margin-top: 60px;
+  margin-bottom: 30px;
+  margin-left: 20px;
+  margin-right: 10px; /* Add some space between the containers */
+}
+
+/* Style the ordered list */
+.custom-list {
+  color: #fff;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Style the pagination buttons */
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1px;
+  position: sticky; /* Keep the buttons sticky at the bottom */
+  bottom: 0;
+  background-color: #fff; /* Set the background color to white */
+}
+
+#prevPageButton,
+#nextPageButton,
+#prevPageButton2,
+#nextPageButton2 {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+#prevPageButton:hover,
+#nextPageButton:hover,
+#prevPageButton2:hover,
+#nextPageButton2:hover {
+  background-color: #0056b3;
+}

@@ -133,7 +133,7 @@ async function get_Report_Table (response, ispremium) {
             a.href = response.data.fileURL;
             a.download = 'myexpenses.csv'
             a.click()
-            createListofDownload(a.href)
+         
           }
       
           else {
@@ -157,7 +157,7 @@ if (token) {
  axios.get('http://localhost:3000/get/expense/downloadlink', {headers: { Authorization: customAuthorizationHeader} })
 .then((response ) => {
 console.log(response.data.Link_Data)
-showResponse(response)
+//showResponse(response)
 })
 .catch((err) => console.log(err));
 } else {
@@ -166,21 +166,61 @@ console.log('Token not found in localStorage');
 }
 });
 
-
 function showResponse(response) {
-  const responseData = response.data.Link_Data;
-
   const myList = document.getElementById('myList'); // Get the ordered list element by its ID
 
-  for (const link of responseData) {
+  for (const link of response) {
     const x = document.createElement('LI'); // Create a new list item element
     const a = document.createElement('A'); // Create a new anchor element
-
-    a.href = link.downloadLink;
-    a.textContent = link.downloadLink;
+    console.log(link.downloadlink)
+    a.href = link.downloadlink;
+    a.textContent = link.downloadlink;
     a.target = '_blank'; // Open the link in a new tab
 
     x.appendChild(a); // Append the anchor element to the list item element
     myList.appendChild(x); // Append the list item element to the ordered list element
   }
 }
+
+
+// Define pagination variables
+let currentPage = 1; // Current page
+const itemsPerPage =2; // Number of items to display per page
+
+// Function to fetch download links based on the page
+async function fetchDownloadLinks(page) {
+  const token = localStorage.getItem('token');
+  if (token) {
+    const customAuthorizationHeader = `MyAuthHeader ${token}`;
+    try {
+      const response = await axios.get(`http://localhost:3000/get/expense/downloadlink?page=${page}&perPage=${itemsPerPage}`, {
+        headers: { Authorization: customAuthorizationHeader },
+      });
+     
+    //  console.log(response.data.download)
+      showResponse(response.data.download);
+    } catch (err) {
+      console.log(err);
+    }
+  } else {
+    console.log('Token not found in localStorage');
+  }
+}
+
+// Event listener for "Next Page" button
+document.getElementById('nextPageButton').addEventListener('click', () => {
+  currentPage++;
+  fetchDownloadLinks(currentPage);
+});
+
+// Event listener for "Previous Page" button
+document.getElementById('prevPageButton').addEventListener('click', () => {
+  if (currentPage > 1) {
+    currentPage--;
+    fetchDownloadLinks(currentPage);
+  }
+});
+
+// Initial fetch on page load
+fetchDownloadLinks(currentPage);
+ 

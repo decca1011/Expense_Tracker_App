@@ -3,11 +3,22 @@ const ExpenseModel = require('../models/expense'); // Assuming you have a UserMo
  
 const getExpense = async (req,res) => {
    try {
+      const Item_Per_page = 5;
+      const page = parseInt(req.query.page);
+      // const limit = parseInt(req.query.limit);  
+     
       // Find all expenses associated with the user
+                     // const expenses = await ExpenseModel.findAll({ 
+                     //   where: { userId: req.user.id } , 
+                     //   attributes:['id','Amount','Income' ,'des','category']
+                     //  });
       const expenses = await ExpenseModel.findAll({ 
-        where: { userId: req.user.id } , 
-        attributes:['id','Amount','Income' ,'des','category']
-       });
+         offset: (page-1)*Item_Per_page,
+         limit: Item_Per_page,
+         where: { userId: req.user.id } , 
+         attributes:['id','Amount','Income' ,'des','category']
+        });
+ 
   
       // Map the expenses to a desired format
       const expenseData = expenses.map(expense => ({
@@ -17,7 +28,7 @@ const getExpense = async (req,res) => {
         des: expense.des,
         category: expense.category,
       }));
-
+console.log(expenseData)
         return expenseData;
 
    }

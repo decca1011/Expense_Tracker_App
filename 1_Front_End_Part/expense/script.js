@@ -67,32 +67,32 @@ async function test(event) {
  }
  }
 
-window.addEventListener('DOMContentLoaded', () => {
-  const token = localStorage.getItem('token'); // Retrieve the token from localStorage
-  if (token) {
-    // If the token exists in localStorage, include it in the request headers Set the custom authorization header
-  const customAuthorizationHeader = `MyAuthHeader ${token}`
-    console.log(token)
-    axios
-      .get('http://localhost:3000/get/expense', {
-        headers: { Authorization: customAuthorizationHeader} // Include the token in the headers
-      })
-      .then((response ) => {
-        const expenseData = response.data.expenseData
-        const ispremium = response.data.ispremium
-        console.log(expenseData);
-        console.log(ispremium)
-       getOnscreen(expenseData ,ispremium);
-      })
-      .catch((err) => console.log(`sssss` ,err));
-  } else {
-        // Handle the case where the token is not found in localStorage
-    console.log('Token not found in localStorage');
-  }
-});
+// window.addEventListener('DOMContentLoaded', () => {
+//   const token = localStorage.getItem('token'); // Retrieve the token from localStorage
+//   if (token) {
+//     // If the token exists in localStorage, include it in the request headers Set the custom authorization header
+//   const customAuthorizationHeader = `MyAuthHeader ${token}`
+//     console.log(token)
+//     axios
+//       .get('http://localhost:3000/get/expense', {
+//         headers: { Authorization: customAuthorizationHeader} // Include the token in the headers
+//       })
+//       .then((response ) => {
+//         const expenseData = response.data.expenseData
+//         const ispremium = response.data.ispremium
+//         console.log(expenseData);
+//         console.log(ispremium)
+//        getOnscreen(expenseData ,ispremium);
+//       })
+//       .catch((err) => console.log(`sssss` ,err));
+//   } else {
+//         // Handle the case where the token is not found in localStorage
+//     console.log('Token not found in localStorage');
+//   }
+// });
 
 
- async function deleteExpense(expenseId, listItemElement, userListElement) {
+ async function deleteExpense(expenseId, listItemElement) {
  try {
    console.log('User deleted:',  expenseId);
    await axios.delete(`http://localhost:3000/user/${expenseId}`);
@@ -108,7 +108,7 @@ window.addEventListener('DOMContentLoaded', () => {
  }
  }
  
- async function editExpense(expense, listItemElement, userListElement) {
+ async function editExpense(expense, listItemElement) {
  const updatedAmount = prompt('Enter updated Amount:', expense.Amount);
  const updatedIncome = prompt('Enter updated Amount:', expense.Income);
  const updateddes = prompt('Enter updated description:',expense.des);
@@ -169,4 +169,54 @@ window.addEventListener('DOMContentLoaded', () => {
  return x;
  }
  
+ 
+
+
+
+
+
+ // Define pagination variables
+let currentPage = 1; // Current page
+const itemsPerPage =5; // Number of items to display per page
+
+// Function to fetch download links based on the page
+async function fetchDownloadLinks(page) {
+  const token = localStorage.getItem('token');
+  if (token) {
+    const customAuthorizationHeader = `MyAuthHeader ${token}`;
+    try {
+      const response = await axios.get(`http://localhost:3000/get/expense?page=${page}&perPage=${itemsPerPage}`, {
+        headers: { Authorization: customAuthorizationHeader },
+      });
+     
+    //  console.log(response.data.download)
+           const expenseData = response.data.expenseData
+              const ispremium = response.data.ispremium
+              console.log(expenseData);
+              console.log(ispremium)
+             getOnscreen(expenseData ,ispremium);
+    } catch (err) {
+      console.log(err);
+    }
+  } else {
+    console.log('Token not found in localStorage');
+  }
+}
+
+// Event listener for "Next Page" button
+document.getElementById('nextPageButton').addEventListener('click', () => {
+  currentPage++;
+  fetchDownloadLinks(currentPage);
+});
+
+// Event listener for "Previous Page" button
+document.getElementById('prevPageButton').addEventListener('click', () => {
+  if (currentPage > 1) {
+    currentPage--;
+    fetchDownloadLinks(currentPage);
+  }
+});
+
+// Initial fetch on page load
+fetchDownloadLinks(currentPage);
  

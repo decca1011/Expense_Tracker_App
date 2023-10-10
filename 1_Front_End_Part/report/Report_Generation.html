@@ -31,9 +31,13 @@
         </form>
         <button id="download" onclick="download(event)" style="display:flex">DOWNLOAD REPORTS</button>
     </div>
-    <div>
-        <ol id="myList" class="custom-list"></ol>
-    </div>
+    <div class="custom-list-container">
+        <ol class="custom-list" id="myList"></ol>
+        <div class="pagination">
+          <button id="prevPageButton">Previous Page</button>
+          <button id="nextPageButton">Next Page</button>
+        </div>
+      </div>
  
     <div id="allReport" style="display: none;" >
         <main>
