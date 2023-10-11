@@ -80,7 +80,7 @@ const getAllExpense = async (req, res) => {
     res.status(200).json({expenseData,ispremium});
   } catch (error) {
     console.error('Error retrieving expense data:', error);
-    res.status(500).json({ error: 'Failed to retrieve expense data' });
+   return  res.status(500).json({ error: 'Failed to retrieve User data' });
   }
 };
 
@@ -126,9 +126,10 @@ const getdownloadExpense = async (req,res) => {
 
 
  const paginatedResults = async (req,res) => {
-  const Item_Per_page = 2;
+  //const Item_Per_page = 2;
   const page = parseInt(req.query.page);
-  // const limit = parseInt(req.query.limit);
+   const Item_Per_page = parseInt(req.query.perPage);
+ 
  
  
    download.findAll({
@@ -149,6 +150,7 @@ const getdownloadExpense = async (req,res) => {
 
 .catch((err) => {
 console.log(err)
+return  res.status(500).json({ error: 'Failed to retrieve expense data' });
 })
  }
 

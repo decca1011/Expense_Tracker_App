@@ -59,7 +59,7 @@ tfoot {
   overflow-y: scroll; /* Enable vertical scrolling if needed */
   max-height: 300px; /* Set a max height for the scrollable container */
   background-color: #fff; /* Set the background color to white */
-  margin-top: 60px;
+  margin-top: 100px;
   margin-bottom: 30px;
   margin-left: 20px;
   margin-right: 10px; /* Add some space between the containers */

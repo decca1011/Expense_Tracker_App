@@ -188,7 +188,7 @@ let currentPage = 1; // Current page
 const itemsPerPage =2; // Number of items to display per page
 
 // Function to fetch download links based on the page
-async function fetchDownloadLinks(page) {
+async function fetchDownloadLinks(page,itemsPerPage) {
   const token = localStorage.getItem('token');
   if (token) {
     const customAuthorizationHeader = `MyAuthHeader ${token}`;
@@ -210,17 +210,17 @@ async function fetchDownloadLinks(page) {
 // Event listener for "Next Page" button
 document.getElementById('nextPageButton').addEventListener('click', () => {
   currentPage++;
-  fetchDownloadLinks(currentPage);
+  fetchDownloadLinks(currentPage,itemsPerPage);
 });
 
 // Event listener for "Previous Page" button
 document.getElementById('prevPageButton').addEventListener('click', () => {
   if (currentPage > 1) {
     currentPage--;
-    fetchDownloadLinks(currentPage);
+    fetchDownloadLinks(currentPage,itemsPerPage);
   }
 });
 
 // Initial fetch on page load
-fetchDownloadLinks(currentPage);
+fetchDownloadLinks(currentPage,itemsPerPage);
  

@@ -49,7 +49,17 @@
         <div class="flex-container">
          
           <div class="custom-list-container">
-            <h2>BILL :</h2>
+            <h2>Expense List :</h2>
+            <label for="perPage">Choose Expense Rows Per Page:</label>
+            <select id="perPage" name="Category" required>
+                <option value="">Select ...</option>
+                <option value="5">5</option>
+                <option value=10>10</option>
+                <option value=15>15</option>
+                <option value=20>20</option>
+                <option value=25>25</option>
+            </select>
+
             <ol class="custom-list" id="myList"></ol>
             <div class="pagination">
               <button id="prevPageButton">Previous Page</button>

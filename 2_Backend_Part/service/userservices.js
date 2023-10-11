@@ -3,10 +3,10 @@ const ExpenseModel = require('../models/expense'); // Assuming you have a UserMo
  
 const getExpense = async (req,res) => {
    try {
-      const Item_Per_page = 5;
+    //const Item_Per_page = 5;
       const page = parseInt(req.query.page);
-      // const limit = parseInt(req.query.limit);  
-     
+    const Item_Per_page = parseInt(req.query.perPage);  
+     //const Item_Per_page = 20
       // Find all expenses associated with the user
                      // const expenses = await ExpenseModel.findAll({ 
                      //   where: { userId: req.user.id } , 
@@ -34,7 +34,7 @@ console.log(expenseData)
    }
    catch (err ) {
       console.error('Error retrieving expense data:', err);
-      res.status(500).json({ error: 'Failed to retrieve expense data' });
+    return json({ error: 'Failed to retrieve expense data' });
    }
 }
 
