@@ -1,9 +1,18 @@
 const path = require('path');
+const  fs = require('fs')
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
+
 const sequelize = require('./util/database');
+
+const helmet = require('helmet')
+
+const  compression = require(`compression`)
+
+const morgan = require('morgan');
+
 const router = require('./router/user');
 const expenseRoutes = require('./router/expense')
 const payRoutes = require('./router/purchase')
@@ -16,7 +25,13 @@ const expense = require('./models/expense');
 const Order = require('./models/orders')
 const forget_password = require('./models/forgotpassword')
 const DownloadReport = require('./models/download');
-const download = require('./models/download');
+
+const accessLogStream = fs.createWriteStream(path.join(__dirname,'acess.log'),{flag: 'a'})
+
+app.use(helmet());
+app.use(compression());
+app.use(morgan('combined', {stream: accessLogStream}) );
+ 
  
 require('dotenv').config();
 
@@ -24,6 +39,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
+
 
 // Define your routes for 'post', 'get', and 'delete' here
 app.use('/post', router);
@@ -45,6 +61,9 @@ app.use('/getYour', dashboard);
 
 app.use('/get', report);
 
+
+
+
 app.get('/', (req, res,) => {
     res.send('Welcome to the Expense Tracker App');
 });
@@ -61,9 +80,10 @@ forget_password.belongsTo(User);
 User.hasMany(DownloadReport);
  DownloadReport.belongsTo(User);
 
+
 sequelize.sync()
     .then(() => {
-        app.listen(3000, () => {
+        app.listen( process.env.PORT || 3000, () => {
             console.log('Server is running on port 3000');
         });
     })

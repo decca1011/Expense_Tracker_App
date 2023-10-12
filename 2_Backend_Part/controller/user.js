@@ -66,7 +66,7 @@ exports.add_User = async (req, res, next) => {
       
 exports.get_User = async (req, res) => {   
  const {  email, password} = req.body;
- console.log(password)
+//  console.log(password)
  
   try {
     const user = await User.findOne({where: {email: email} })
@@ -74,7 +74,7 @@ exports.get_User = async (req, res) => {
        if(user)
        {
           const passwordMatch = await bcyrpt.compare(password , user.password);
- console.log(password, passwordMatch)
+//  console.log(password, passwordMatch)
           if(passwordMatch){
  
       

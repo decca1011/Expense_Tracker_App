@@ -5,7 +5,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 const authenticate = async (req, res, next) => {
   try {
-    console.log(req.header('Authorization'))
+   
     const customAuthorizationHeader = req.header('Authorization');
 
     if (!customAuthorizationHeader || !customAuthorizationHeader.startsWith('MyAuthHeader ')) {
@@ -14,7 +14,7 @@ const authenticate = async (req, res, next) => {
 
     // Extract the token part from the custom header format
     const token = customAuthorizationHeader.split(' ')[1];
-console.log(token,"dsdsdsdsdsd")
+ 
     // Verify and decode the token as before
      const user = jwt.verify(token, JWT_SECRET); // Replace 'secretkey' with your actual secret key
     // console.log(user.userId);
@@ -29,7 +29,7 @@ console.log(token,"dsdsdsdsdsd")
 
     
    req.user = foundUser;
- console.log("mmmmmmmmmmmm")
+ 
   next();
   } catch (error) {
     console.error(error);

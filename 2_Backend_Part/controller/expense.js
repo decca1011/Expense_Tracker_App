@@ -41,18 +41,9 @@ const t = await sequelize.transaction();
   // Update the user's total balance
   const updatedTotal = parseInt(user.total) + parseInt(Amount)
   await user.update({ total: updatedTotal}, {transaction: t});
-
-  // Create a response object with the expense data
-  const responseData = {
-        id: create_Expense.id,
-        Amount: create_Expense.Amount,
-        Income: create_Expense.Income,
-        des: create_Expense.des,
-        category: create_Expense.category,
-  };  
-  // Send the response
+  
   await t.commit();
-  res.status(201).json(responseData); 
+  res.status(201).json('sucessfully inserted'); 
 
  }  catch (err) {
   await t.rollback();
@@ -73,7 +64,7 @@ const getAllExpense = async (req, res) => {
     else {
       ispremium = true;
     }
-    console.log(ispremium);
+ 
 
     // Send the formatted expense data as a response
    

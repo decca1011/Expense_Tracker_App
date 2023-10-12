@@ -18,7 +18,7 @@ const uploadToS3 = async (data, filename) => {
      ACL: 'public-read'
  }
  return  new Promise ((resolve , reject) => {  
-   console.log('Uploading to S3:', filename, 'Data Length:', data); // Add this line for debugging
+ //  console.log('Uploading to S3:', filename, 'Data Length:', data); // Add this line for debugging
  
    s3bucket.upload( params,  (err, s3response) => {
      if (err) {

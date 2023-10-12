@@ -28,7 +28,7 @@ const getExpense = async (req,res) => {
         des: expense.des,
         category: expense.category,
       }));
-console.log(expenseData)
+ 
         return expenseData;
 
    }

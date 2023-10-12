@@ -1,10 +1,5 @@
-const ExpenseModel = require('../models/expense'); // Assuming you have a UserModel defined in models/user.js
-const User = require('../models/userData');  // Controller function to insert a new user
-const sequelize = require('../util/database'); 
+ 
 const getExpense = require('./expense')
-
-
-
 
 const  get_your_report = async (req, res) => {  
    try { 

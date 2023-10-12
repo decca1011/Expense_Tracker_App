@@ -68,10 +68,9 @@ function signUp(event) {
   
     // Make a POST request using Axios to send the userData object to your backend
     axios.post('http://localhost:3000/post/Data', userData)
-      .then((result) => {
+      .then(() => {
         alert(`User Create Succesfuly ====>    NOW SIGN_IN`)
         console.log('POST request successful');
-        console.log('Response:', result.data);
         window.location.reload()
       })
       .catch((err) => {

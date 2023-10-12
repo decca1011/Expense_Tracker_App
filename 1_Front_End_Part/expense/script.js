@@ -18,7 +18,7 @@ async function test(event) {
   if (token) {
     // If the token exists in localStorage, include it in the request headers Set the custom authorization header
   var AuthorizationHeader = `MyAuthHeader ${token}`
-    console.log(AuthorizationHeader)
+   
   }
   // Create an object with expense data, including the userId
   const myObj = { Amount: Amount ,Income:Income,  des: des , category: category };  
@@ -26,7 +26,7 @@ async function test(event) {
   await axios.post('http://localhost:3000/post/expense', myObj,{
     headers: { Authorization: AuthorizationHeader}})
     .then((response) => {
-      console.log(response.data);
+      console.log(response);
     // return window.location.reload
       //getOnscreen(response.data);
     }).then(window.location.reload())
@@ -53,7 +53,7 @@ async function test(event) {
     document.getElementById('dashboard').style.display = 'none';
   }
    const expenseList = response; // Assuming the response contains an array of user objects
-   console.log(expenseList)
+   //console.log(expenseList)
    localStorage.setItem('expenseData', JSON.stringify(expenseList));  // Store the fetched data in local storage
  
    var w = document.getElementById('myList');
@@ -174,18 +174,18 @@ async function test(event) {
  // Define pagination variables
 let currentPage = 1; // Current page
 let itemsPerPage = localStorage.getItem('selectedPerPage') || 5 ; // Number of items to display per page
- console.log(itemsPerPage)
+ 
  // Function to handle the "Choose Expense Rows Per Page" select change event
 document.getElementById('perPage').addEventListener('change', (event) => {
   // Get the selected value
   const selectedValue = event.target.value;
-console.log(selectedValue, "sssssss")
+ 
   // Store the selected value in local storage
   localStorage.setItem('selectedPerPage', selectedValue);
  
   itemsPerPage = parseInt(selectedValue)
   currentPage = 1;
-  console.log(itemsPerPage)
+ 
  
   fetchDownloadLinks(currentPage,itemsPerPage);
 
