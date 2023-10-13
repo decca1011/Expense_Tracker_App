@@ -11,7 +11,7 @@ const client = Sib.ApiClient.instance;
 
 const apikey = client.authentications['api-key']
 
-apikey.apiKey = process.env.API_KEY
+apikey.apiKey = process.env.SENGRID_API_KEY
 
 
 // const  forget_password_send_email= async (req, res) => {
