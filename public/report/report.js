@@ -123,7 +123,7 @@ async function get_Report_Table (response, ispremium) {
   const customAuthorizationHeader = `MyAuthHeader ${token}`
     console.log(token)
     axios
-      .get('http://localhost:3000/get/expense/download', {
+      .get('http://3.87.75.42:3000/get/expense/download', {
         headers: { Authorization: customAuthorizationHeader} // Include the token in the headers
       })
       .then((response) => {
@@ -154,7 +154,7 @@ window.addEventListener('DOMContentLoaded', () => {
 const token = localStorage.getItem('token'); 
 if (token) {
  const customAuthorizationHeader = `MyAuthHeader ${token}`
- axios.get('http://localhost:3000/get/expense/downloadlink', {headers: { Authorization: customAuthorizationHeader} })
+ axios.get('http://3.87.75.42:3000/get/expense/downloadlink', {headers: { Authorization: customAuthorizationHeader} })
 .then((response ) => {
 console.log(response.data.Link_Data)
 //showResponse(response)
@@ -193,7 +193,7 @@ async function fetchDownloadLinks(page,itemsPerPage) {
   if (token) {
     const customAuthorizationHeader = `MyAuthHeader ${token}`;
     try {
-      const response = await axios.get(`http://localhost:3000/get/expense/downloadlink?page=${page}&perPage=${itemsPerPage}`, {
+      const response = await axios.get(`http://3.87.75.42:3000/get/expense/downloadlink?page=${page}&perPage=${itemsPerPage}`, {
         headers: { Authorization: customAuthorizationHeader },
       });
      

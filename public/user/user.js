@@ -1,6 +1,21 @@
+function toggleSignUp() {
+  var signUpButton = document.querySelector(".btn-signup-toggle");
+  var signUpContainer = document.getElementById("signUpContainer");
+  var signInForm = document.getElementById("signInForm");
+
+  // Hide the sign-in form
+  signInForm.style.display = "none";
+
+  // Show the sign-up container
+  signUpContainer.style.display = "block";
+
+  // Hide the sign-up toggle button
+  signUpButton.style.display = "none";
+}
 function signIn(event) {
   event.preventDefault()
   // Get the values from the form
+  console.log('Sdsdsd=>>>>string call')
   const email = document.getElementById("existingEmail").value;
   const password = document.getElementById("existingPassword").value;
 
@@ -11,7 +26,7 @@ function signIn(event) {
   };
   localStorage.clear()
   // Make a POST request to your backend for sign-in
-  axios.post('http://localhost:3000/post/signin', userData)
+  axios.post('http://3.87.75.42:3000/post/signin', userData)
     .then((response) => {
       // Check the response from the backend
       if (response.data.success) {
@@ -51,7 +66,7 @@ function signIn(event) {
 function signUp(event) {
   // Add your sign-up logic here
     event.preventDefault();
-  
+  console.log("dsdsd=>>>> data send")
     // Get the values from the form
     const username = document.getElementById("username").value;
     const email = document.getElementById("email").value;
@@ -66,8 +81,10 @@ function signUp(event) {
       mobile: mobile
     };
   
+    console.log("dsdsd=>>>> ", userData)
     // Make a POST request using Axios to send the userData object to your backend
-    axios.post('http://localhost:3000/post/Data', userData)
+   
+    axios.post('http://3.87.75.42:3000/post/Data', userData)
       .then(() => {
         alert(`User Create Succesfuly ====>    NOW SIGN_IN`)
         console.log('POST request successful');
@@ -114,7 +131,7 @@ async function forgotPassword() {
   } 
   //backend api route called /password/forgotpassword via axios
 try{
-  await  axios.post('http://localhost:3000/called/password/forgotpassword ', User_Data)
+  await  axios.post('http://3.87.75.42:3000/called/password/forgotpassword ', User_Data)
   .then((result) => {
     console.log(`Forgot password for email: ${email}`);
     alert('check_your_email')

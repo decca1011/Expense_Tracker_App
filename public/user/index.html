@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- <meta name="viewport" http-equiv="Content-Security-Policy" content="width=device-width, initial-scale=1.0"> -->
+  <!-- <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net;"> -->
+<!-- <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://cdnjs.cloudflare.com;"> -->
   <title>Expense Tracker App</title>
   <link rel="stylesheet" href="../style/style.css">
 </head>
@@ -15,7 +18,7 @@
     <section class="container">
       <div id="signInContainer"> <!-- Added a container for Sign In form -->
 
-        <form id="signInForm">
+        <form id="signInForm" onsubmit="signIn(event)">
           <h2>Existing User Sign In</h2>
           <div class="form-group">
             <label for="existingEmail">Email:</label>
@@ -25,7 +28,12 @@
             <label for="existingPassword">Password:</label>
             <input type="password" id="existingPassword" name="existingPassword" required>
           </div>
-          <button class="btn-signin" onclick="signIn(event)">Sign In</button>
+          <button class="btn-signin" type="submit" >Sign In</button>
+          <!-- onclick="signIn(event)
+       -->
+            <!-- <div class="signInButton" onclick="signIn()">Sign In</div> -->
+            <!-- <a  href="#"  onclick="signIn()">Sign In</a> -->
+            
           <a href="#" onclick="openForgotPasswordModal()">Forgot Password?</a><br />
         </form>
       </div>
@@ -51,6 +59,9 @@
           <div class="form-group">
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required>
+
+       
+
           </div>
           <div class="form-group">
             <label for="mobile">Mobile Number:</label>
@@ -67,25 +78,11 @@
   <footer>
     <p>&copy; 2023 Expense Tracker App</p>
   </footer>
+  <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+<!--  
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 
-  <script>
-    function toggleSignUp() {
-      var signUpButton = document.querySelector(".btn-signup-toggle");
-      var signUpContainer = document.getElementById("signUpContainer");
-      var signInForm = document.getElementById("signInForm");
-
-      // Hide the sign-in form
-      signInForm.style.display = "none";
-
-      // Show the sign-up container
-      signUpContainer.style.display = "block";
-
-      // Hide the sign-up toggle button
-      signUpButton.style.display = "none";
-    }
-  </script>
-
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="user.js"></script>
 </body>
 </html>
