@@ -98,7 +98,7 @@ User.hasMany(DownloadReport);
 sequelize.sync()
     .then(() => {
         app.listen( process.env.PORT || 4000, () => {
-            console.log('Server is running on port 3000');
+            console.log('Server is running on port 4000');
         });
     })
     .catch(err => console.log(err));

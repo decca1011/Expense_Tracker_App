@@ -23,7 +23,7 @@ async function test(event) {
   // Create an object with expense data, including the userId
   const myObj = { Amount: Amount ,Income:Income,  des: des , category: category };  
   // Send a POST request to add the expense
-  await axios.post('http://3.87.75.42:3000/post/expense', myObj,{
+  await axios.post('http://34.201.122.170:3000/post/expense', myObj,{
     headers: { Authorization: AuthorizationHeader}})
     .then((response) => {
       console.log(response);
@@ -95,7 +95,7 @@ async function test(event) {
  async function deleteExpense(expenseId, listItemElement) {
  try {
    console.log('User deleted:',  expenseId);
-   await axios.delete(`http://3.87.75.42:3000/user/${expenseId}`);
+   await axios.delete(`http://34.201.122.170:3000/user/${expenseId}`);
  
    // Remove the deleted list item from the UI
    listItemElement.remove();
@@ -124,7 +124,7 @@ async function test(event) {
    };
  
    try {
-     const response = await axios.post('http://3.87.75.42:3000/user/edit', updatedUserData);
+     const response = await axios.post('http://34.201.122.170:3000/user/edit', updatedUserData);
      console.log('User updated:', response.data);
  
      // Update the user in the UI
@@ -198,7 +198,7 @@ async function fetchDownloadLinks(page,itemsPerPage) {
   if (token) {
     const customAuthorizationHeader = `MyAuthHeader ${token}`;
     try {
-      const response = await axios.get(`http://3.87.75.42:3000/get/expense?page=${page}&perPage=${itemsPerPage}`, {
+      const response = await axios.get(`http://34.201.122.170:3000/get/expense?page=${page}&perPage=${itemsPerPage}`, {
         headers: { Authorization: customAuthorizationHeader },
       });
      
