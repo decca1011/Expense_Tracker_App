@@ -30,7 +30,7 @@ document.getElementById('razor').onclick = async function (e) {
    const token = localStorage.getItem('token');
    const customAuthorizationHeader = `MyAuthHeader ${token}`;
  
-   const response = await axios.get('http://3.87.75.42:3000/purchase/premium', {
+   const response = await axios.get('http://34.201.122.170:3000/purchase/premium', {
      headers: { "Authorization": customAuthorizationHeader }
    });
  
@@ -40,7 +40,7 @@ document.getElementById('razor').onclick = async function (e) {
      "handler": async function (response) {
       console.log(response)
        
-       await axios.post('http://3.87.75.42:3000/purchase/updatetranscationstatus', {
+       await axios.post('http://34.201.122.170:3000/purchase/updatetranscationstatus', {
          order_id: options.order_id, // Use the correct order_id here
          paymentId: response.razorpay_payment_id, status: 'SUCESS'
        }, {
@@ -57,7 +57,7 @@ document.getElementById('razor').onclick = async function (e) {
    rzp1.on('payment.failed', async function (response) {
      //const { order_id, paymentId } = response;
  
-     await axios.post('http://3.87.75.42:3000/purchase/updatetranscationstatus', {
+     await axios.post('http://34.201.122.170:3000/purchase/updatetranscationstatus', {
        order_id: options.order_id, // Use the correct order_id here
        paymentId: response.razorpay_payment_id,
        status: 'FAILED'
@@ -77,7 +77,7 @@ document.getElementById('razor').onclick = async function (e) {
   const token = localStorage.getItem('token');
   const customAuthorizationHeader = `MyAuthHeader ${token}`;
 
-  const response = await axios.get('http://3.87.75.42:3000/getYour/dashboard/', {
+  const response = await axios.get('http://34.201.122.170:3000/getYour/dashboard/', {
     headers: { "Authorization": customAuthorizationHeader }
   })
     // Store the dashboard data in localStorage

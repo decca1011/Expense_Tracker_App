@@ -1,3 +1,5 @@
+ 
+
 function toggleSignUp() {
   var signUpButton = document.querySelector(".btn-signup-toggle");
   var signUpContainer = document.getElementById("signUpContainer");
@@ -26,7 +28,7 @@ function signIn(event) {
   };
   localStorage.clear()
   // Make a POST request to your backend for sign-in
-  axios.post('http://3.87.75.42:3000/post/signin', userData)
+  axios.post('http://34.201.122.170:3000/post/signin', userData)
     .then((response) => {
       // Check the response from the backend
       if (response.data.success) {
@@ -51,13 +53,14 @@ function signIn(event) {
       else 
       {
         // Authentication failed, handle the error here
-       
+       console.log(userData)
         console.log('Sign-in failed');
       }
     })
     .catch((err) => {
       // Handle other errors here
       alert("login- un-successful")
+      console.log(userData)
       console.error('Sign-in error:', err);
     });
 }
@@ -84,7 +87,7 @@ function signUp(event) {
     console.log("dsdsd=>>>> ", userData)
     // Make a POST request using Axios to send the userData object to your backend
    
-    axios.post('http://3.87.75.42:3000/post/Data', userData)
+    axios.post('http://34.201.122.170:3000/post/Data', userData)
       .then(() => {
         alert(`User Create Succesfuly ====>    NOW SIGN_IN`)
         console.log('POST request successful');
@@ -131,7 +134,7 @@ async function forgotPassword() {
   } 
   //backend api route called /password/forgotpassword via axios
 try{
-  await  axios.post('http://3.87.75.42:3000/called/password/forgotpassword ', User_Data)
+  await  axios.post('http://34.201.122.170:3000/called/password/forgotpassword ', User_Data)
   .then((result) => {
     console.log(`Forgot password for email: ${email}`);
     alert('check_your_email')
