@@ -90,25 +90,4 @@ getDashBoard(response.data)
  
 
 
-
-
-//  # SEQUELIZE
-// DATABASE_TABLE = 'ExpenseTracker'
-// DATABASE_PASSWORD = 'Sodexo11'
-// DATABASE_USER_NAME = 'deepak'
-// DATABASE_HOST = 'database-1.cn4nk0djzprl.us-east-1.rds.amazonaws.com'
-
-// #JWT TOKEN RELATED
-// JWT_SECRET= 'efwefefefefefe'
-
-// # PAYMENT
-// RAZORPAY_KEY_ID ='rzp_test_69EQJHNRZkWzsf'
-// RAZORPAY_KEY_SECRET='j1znpzY0eP0dnngnhcsWDoHZ'
-
-// #SEND EMAIL FOR FORGET PASSWORD
-// SENGRID_API_KEY = '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'
-
-//  #AMAZON CREDENTIALS FOR DOWNLOAD
-// BUCKET_NAME = 'expencetrackingappforyou'
-// IAM_USER_KEY = 'AKIAYJ2WARCN4BMPALYB'
-// IAM_USER_SECRET = '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'
+ 

@@ -41,14 +41,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 
 
-// Define your routes for 'post', 'get', and 'delete' here
+//  routes for 'post', 'get', and 'delete' here
 app.use('/post', router);
-
-// app.use('/post', (req,res)=>{
-//     console.log(req.body)
-//     res.send("Post request")
-// } )
-
 
 app.use('/called/password',resetpassword);
 
@@ -68,10 +62,6 @@ app.use('/getYour', dashboard);
 
 app.use('/get', report);
 
-//  app.use((req,res) => {
-//     console.log(`url` , req.url)
-//     res.sendFile(path.join(__dirname, 'public/${req.url}'))
-//  })
 
 app.use(function(req, res, next) { 
     res.setHeader( 'Content-Security-Policy', "script-src 'self' https://cdnjs.cloudflare.com" ); 
