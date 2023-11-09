@@ -69,7 +69,7 @@ app.use(function(req, res, next) {
   })
 app.use((req, res) => {
     console.log('url', req.url);
-    res.sendFile(path.join(__dirname, 'public', req.url));
+    res.sendFile(path.join(__dirname, 'Public', req.url));
 });
 
 User.hasMany(expense);

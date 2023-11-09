@@ -1,22 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../style/style.css" />
-    <link rel="stylesheet" type="text/css" href="../style/style_table.css" />
+    <link rel="stylesheet" type="text/css" href="../Style/Style_Table.css"> 
+    <link rel="stylesheet" type="text/css" href="../Style/Style.css">
     <title>Transaction Table</title>
 </head>
 <body>
     <header>
-         <h1>Expense Tracker App</h1>
-         <p>Track your Expense here</p> 
-         <nav>
-            <a href=../expense/expense.html>Home</a> <h1>   </h1>
-          </nav>   
+        <h1>Expense Tracker App</h1>
+        <p>Track your Expense here</p> 
+        <nav>
+            <a href="../Expense/User_Expense.html">Home</a>
+            <h1></h1>
+        </nav>   
     </header>   
+
     <center><h1><b>Day to Expenses</b></h1></center>
+    
     <div class="container" id="div1">
         <form name="sample">
             <label for="start_date">Start Date:</label>
@@ -27,18 +30,18 @@
             <p id="date_error" style="color: red;"></p>
             <br>
             <button id="getReport" onclick="ShowReport(event)">GET YOUR REPORTS</button>
-           
         </form>
         <button id="download" onclick="download(event)" style="display:flex">DOWNLOAD REPORTS</button>
     </div>
+
     <div class="custom-list-container">
         <ol class="custom-list" id="myList"></ol>
         <div class="pagination">
-          <button id="prevPageButton">Previous Page</button>
-          <button id="nextPageButton">Next Page</button>
+            <button id="prevPageButton">Previous Page</button>
+            <button id="nextPageButton">Next Page</button>
         </div>
-      </div>
- 
+    </div>
+
     <div id="allReport" style="display: none;" >
         <main>
             <div>
@@ -57,7 +60,7 @@
                             </thead>
                             <tbody id="report">
                                 <tr>
-                                    <td> 2.9.2023</td>
+                                    <td>2.9.2023</td>
                                     <td>Groceries</td>
                                     <td>Food</td>
                                     <td></td>
@@ -74,12 +77,13 @@
                 </center>
             </div>
         </main>
+
         <main>   
             <div>
                 <center>
                     <h1>Yearly Report</h1>
                     <div>
-                        <table id ="yearly_report">
+                        <table id="yearly_report">
                             <thead>
                                 <tr>
                                     <th>Month</th>
@@ -90,7 +94,7 @@
                             </thead>
                             <tbody id="reportTableBody">
                                 <tr>
-                                    <td> sept</td>
+                                    <td>sept</td>
                                     <td>100s</td>
                                     <td>50</td>
                                     <td>50</td>
@@ -107,12 +111,13 @@
                 </center>
             </div>
         </main>
+
         <main>   
             <div>
                 <center>
                     <h1>Notes Report</h1>
                     <div>
-                        <table id ="yearly_report">
+                        <table id="yearly_report">
                             <thead>
                                 <tr>
                                     <th>Date</th>
@@ -122,7 +127,7 @@
                             <tbody>
                                 <tr>
                                     <td>10-11-2023</td>
-                                    <td>Buy house </td>
+                                    <td>Buy house</td>
                                 </tr>
                             </tbody>    
                         </table>
@@ -131,7 +136,8 @@
             </div>
         </main>
     </div>
+
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="report.js"></script>
+    <script src="Report.js"></script>
 </body>
 </html>
